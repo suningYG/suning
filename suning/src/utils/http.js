@@ -3,6 +3,7 @@ import axios from "axios"
 const get = ({url}) =>{
     return axios({
         url,
+    
     })
     .then(result =>{
         // console.log(result)

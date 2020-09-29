@@ -1,74 +1,50 @@
 <template>
-    <div>
-        <TableContent :goods="goodsContent"></TableContent>
+    <div class="foods">
+        <TableContent :foodcate="foodcate"></TableContent>
+        <LimitedTimeSpike :foodList="foodList"></LimitedTimeSpike>
+        <h5>为你推荐</h5>
     </div>
 </template>
 
 <script>
 import TableContent from "../../../components/TableContent.vue"
+import LimitedTimeSpike from "../../../components/LimitedTimeSpike.vue"
+import { get } from "../../../utils/http.js"
 export default {
-    components:{
-        TableContent
-    },
-    
     data() {
         return {
-             goodsContent:[
-                {
-                    id:"001",
-                    imgsrc:"",
-                    goodsName:"婴儿奶粉"
-                },
-                {
-                    id:"002",
-                    imgsrc:"",
-                    goodsName:"纸尿裤"
-                },
-                {
-                    id:"003",
-                    imgsrc:"",
-                    goodsName:"童装童鞋"
-                },
-                {
-                    id:"004",
-                    imgsrc:"",
-                    goodsName:"喂养洗护"
-                },
-                {
-                    id:"005",
-                    imgsrc:"",
-                    goodsName:"童车童床"
-                },
-                {
-                    id:"006",
-                    imgsrc:"",
-                    goodsName:"益智玩具"
-                },
-                {
-                    id:"007",
-                    imgsrc:"",
-                    goodsName:"孕妈专区"
-                },
-                {
-                    id:"008",
-                    imgsrc:"",
-                    goodsName:"营养辅食"
-                },
-                {
-                    id:"009",
-                    imgsrc:"",
-                    goodsName:"进口母婴"
-                },
-                {
-                    id:"010",
-                    imgsrc:"",
-                    goodsName:"母婴会员"
-                }
-            ]
+            foodList:[],
+            foodcate:[],
         }
+    },
+    components:{
+        TableContent,
+        LimitedTimeSpike
+    },
+    async mounted() {
+        let result = await get({
+            url:"/pdua/mpapi/pd/xcxTabPage.do?callback=callback&_=1601344836504&cityCode=010&msCount=20&catalogueId=202261",
+            // query:{
+            //     _:1601276261750,
+            //     cityCode:010,
+            //     msCount:20,
+            //     catalogueId:202275
+            // }
+        })
+        this.foodList = JSON.parse(result.data.substring(9,result.data.length-2)).data.msSkus
+        this.foodcate = JSON.parse(result.data.substring(9,result.data.length-2)).data.iconTags
+    },
+    methods: {
+
     },
 }
 </script>
 <style lang="stylus" scoped>
-
+.foods
+    overflow-y scroll
+    h5
+        font-size 0.16rem
+        color #000000
+        margin 0.19rem 0 0.1rem
+        padding-left 0.2rem
 </style>

@@ -2,7 +2,7 @@
     <div class="content">
         <header>
             <div>
-                <img src="../../../assets/imgs/logo.png" alt="">
+                <img src="https://image.suning.cn/uimg/cms/img/160128358282267411.gif" alt="">
             </div>
         </header>
         <div class="selectBox">
@@ -78,15 +78,16 @@ export default {
     header 
         height 0.44rem
         background red
-        padding-left 0.21rem
         display flex
         align-items center
         div
             width 1.56rem
             height 0.36rem
-            img 
+            img
+                position absolute
                 width 100%
-                height 100%
+                height 21%
+                top:-0.93rem
     .selectBox
       .select
           height .44rem
@@ -120,20 +121,20 @@ export default {
               height .34rem
               border-radius 10px
               border none
-              border 2px solid #f09d4b
+              border 1px solid #6666cc
               padding-left 0.64rem
           input::-webkit-input-placeholder
               color: #cccccc;
           button
               width 0.61rem
-              height .32rem
+              height .315rem
               border none
-              background #f09d4b
+              background #6666cc
               font-size 0.16rem
               color #fefefe
               border-radius 8px
               position absolute
-              right 0.87rem
+              right 0.86rem
           img
               width 0.3rem
               height 0.3rem

@@ -16,56 +16,56 @@ export default new VueRouter({
                 {
                     path:"/index",
                     name:"index",
-                    redirect:"/bouti",
+                    redirect:"/index/bouti",
                     component:() => import("../views/home/index/Home.vue"),
                     children:[
                         {
-                            path:"/bouti",
+                            path:"bouti",
                             name:"bouti",
                             component:() => import("../views/home/index/Boutique.vue")
                         },
                         {
-                            path:"/food",
+                            path:"food",
                             name:"food",
                             component:() => import("../views/home/index/Food.vue")
                         },
                         {
-                            path:"/mumson",
+                            path:"mumson",
                             name:"mumson",
                             component:() => import("../views/home/index/MumSon.vue")
                         },
                         {
-                            path:"/percare",
+                            path:"percare",
                             name:"percare",
                             component:() => import("../views/home/index/PerCare.vue")
                         },
                         {
-                            path:"/import",
+                            path:"import",
                             name:"import",
                             component:() => import("../views/home/index/Import.vue")
                         },
                         {
-                            path:"/phone",
+                            path:"phone",
                             name:"phone",
                             component:() => import("../views/home/index/Phone.vue")
                         },
                         {
-                            path:"/checken",
+                            path:"checken",
                             name:"checken",
                             component:()=>import("../views/home/index/Checken.vue")
                         },
                         {
-                            path:"/appli",
+                            path:"appli",
                             name:"appli",
                             component:() => import("../views/home/index/Appli.vue")
                         },
                         {
-                            path:"/duds",
+                            path:"duds",
                             name:"duds",
                             component:() => import("../views/home/index/Duds.vue")
                         },
                         {
-                            path:"/health",
+                            path:"health",
                             name:"health",
                             component: () => import("../views/home/index/Health.vue")
                         }

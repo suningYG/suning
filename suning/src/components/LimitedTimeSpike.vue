@@ -14,24 +14,24 @@
                             <i>限时</i>
                             <em>特价</em>
                         </h1>
+                        <img :src="item.pictureUrl" alt="">
                     </div>
                     <div class="content">
                         <h3>
                             抢
                         </h3>
                         <h2>
-                            音河东北大米5...
+                            {{item.sugGoodsName}}
                         </h2>
                         <p>{{item.feature}}</p>
                         <h4>
                             <i>￥</i>
                             <span>{{item.price | firstPrice}}</span>
-                            <em>.{{item.price | lastPoint}}</em>
+                            <em>{{item.price | lastPoint}}</em>
                         </h4>
                     </div>
                 </div>
             </section>
-            <h5>为你推荐</h5>
         </div>
     </div>
 </template>
@@ -53,7 +53,6 @@ export default {
            let arr = this.foodList.filter((value,index)=>{
                return value.promotionInfo === "秒杀"
            })
-           console.log(arr);
            return arr
         }
     },
@@ -62,7 +61,11 @@ export default {
             return value.split(".")[0]
         },
         lastPoint(value){
-            return value.split(".")[1]
+            if(Number(value.split(".")[1]) === 0){
+                return ""
+            }else{
+                return "." + value.split(".")[1]
+            }
         }
 
     }
@@ -73,14 +76,14 @@ export default {
 .limite
     width 100%
     height 4.18rem
-    background pink
+   
     padding 0 0.12rem
     .limitBox
         height 100%
         width 3.51rem
-        background yellowgreen
         border-radius 15px
         padding 0 0.09rem
+        background yellowgreen 
         header 
             height 0.4rem
             h1
@@ -99,21 +102,21 @@ export default {
                     line-height 0.4rem
         section 
             height 3.72rem
-            background blue
             display flex
             justify-content space-between
             flex-wrap wrap
             .goodsInfo
                 width 1.08rem
                 height 1.86rem
-                background red
-                
                 .imgbox
                     width 1.08rem
                     height 1.06rem
                     background #f7f7f7
                     border-radius 10px
                     position relative
+                    img 
+                        width 100%
+                        height 100%
                     h1
                         font-size 0.12rem
                         font-weight bolder
@@ -132,7 +135,6 @@ export default {
                         i 
                             color #fdf75d
                 .content
-                    background green
                     height 0.8rem
                     position relative
                     padding-top 0.12rem       
@@ -153,10 +155,16 @@ export default {
                         font-size 0.14rem
                         font-weight bolder
                         line-height 0.14rem
+                        overflow hidden
+                        text-overflow ellipsis 
+                        white-space nowrap
                     p
                         font-size 0.12rem
                         color #ec6c32
                         font-weight normal
+                        overflow hidden
+                        text-overflow ellipsis 
+                        white-space nowrap
                     h4
                         position absolute
                         left 0
@@ -171,8 +179,5 @@ export default {
                         em
                             font-size 0.1rem
 
-        h5
-            font-size 0.16rem
-            color #000000
-            margin 0.19rem 0 0.1rem
+
 </style>            

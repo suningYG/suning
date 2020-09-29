@@ -2,12 +2,12 @@
     <div class="tablegoods">
         <div class="tablebox">
             <ul>
-                <li v-for="item in goods" :key="item.id">
+                <li v-for="item in foodcate" :key="item.elementId">
                     <div class="imgbox">
-                        <!-- <img src="" alt=""> -->
+                        <img :src="'https://image.suning.cn'+item.imageUrl" alt="">
                         
                     </div>
-                    <h5>{{item.goodsName}}</h5>
+                    <h5>{{item.name}}</h5>
                 </li>
             </ul>
         </div>
@@ -18,7 +18,7 @@
 <script>
 export default {
     props:{
-        goods:{
+        foodcate:{
             type:Array,
             required:true
         }
@@ -31,7 +31,7 @@ export default {
 <style lang="stylus" scoped>
 .tablegoods
     height 1.95rem
-    background yellow
+ 
     padding 0 0.2rem 0.2rem
     .tablebox 
         width 100%
@@ -55,6 +55,9 @@ export default {
                     height 0.51rem
                     border-radius 100%
                     background #f1f3f3
+                    img 
+                        width 100%
+                        height 100%
                 h5
                     font-size 0.12rem
                     font-weight normal

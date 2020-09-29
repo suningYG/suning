@@ -21,57 +21,57 @@ export default {
             list:[
                 {
                     id:"001",
-                    route:"/bouti",
+                    route:"bouti",
                     text:"精选"
                 },
                 {
                     id:"002",
-                    route:"/food",
+                    route:"food",
                     text:"食品"
                 },
                 {
                     id:"003",
-                    route:"/mumson",
+                    route:"mumson",
                     text:"母婴"
                 },
                 {
                     id:"004",
-                    route:"/percare",
+                    route:"percare",
                     text:"个护清洁"
                 },
                 {
                     id:"005",
-                    route:"/import",
+                    route:"import",
                     text:"进口"
                 },
                 {
                     id:"006",
-                    route:"/phone",
+                    route:"phone",
                     text:"手机"
                 },
                 {
                     id:"007",
-                    route:"/checken",
+                    route:"checken",
                     text:"厨卫"
                 },
                 {
                     id:"008",
-                    route:"/appli",
+                    route:"appli",
                     text:"小家电"
                 },
                 {
                     id:"009",
-                    route:"/duds",
+                    route:"duds",
                     text:"服饰"
                 },
                 {
                     id:"010",
-                    route:"/health",
+                    route:"health",
                     text:"苏宁健康"
                 },
                 {
                     id:"011",
-                    route:"/footwear",
+                    route:"footwear",
                     text:"鞋靴"
                 },
             ]
@@ -82,13 +82,17 @@ export default {
             let path = this.list.find(value =>{
                 return id === value.id
             } ).route
-            if(this.$route.path === path) return
+            if(this.$route.path === '/index/'+path) return
             this.$router.push(path)
             this.active = id
         }
     },
     mounted() {
-        if(this.$route.path === "/bouti") this.active = "001"
+        let r = this.$route.path.substr(7)
+        let id = this.list.find(value =>{
+            return value.route === r 
+        })
+        if(r === id.route) this.active = id.id
     },
 }
 </script>
@@ -115,6 +119,7 @@ nav
         .active
             font-size 0.2rem
             color #000
+            font-weight bold
     .arrow
         width 0.42rem
         height 0.38rem

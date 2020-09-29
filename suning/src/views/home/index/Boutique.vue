@@ -16,7 +16,24 @@
             </div>
             <div class="adver">
                 <div class="adbox">
-                    <img src="../../../assets/imgs/adver.png" alt="">
+                    <!-- <img src="https://image.suning.cn/uimg/cms/img/160128602476555121.gif" alt="" class=""> -->
+                    <ul>
+                        <li>
+                            <img src="" alt="">
+                            <span></span>
+                        </li>
+                        <li>
+                            <img src="" alt="">
+                            <span></span>
+                        </li>
+                        <li>
+                            <img src="" alt="">
+                            <span></span>
+                        </li>
+                    </ul>
+                    <div class="gifBox-1">
+                    </div>
+
                 </div>
             </div>
             <div class="snbuy">
@@ -128,9 +145,28 @@ export default {
             width 3.52rem
             height 1.45rem
             border-radius 10px
-            img
-                width 100%
-                height 100%
+            background url('https://image.suning.cn/uimg/cms/img/160128602476555121.gif') no-repeat 
+            background-size 100% 
+            position relative
+            ul
+                width 2.1rem
+                height 0.93rem
+                background yellow 
+                position absolute
+                bottom 0.22rem
+                left 0.24rem
+                border-radius 10px
+                display flex
+                justify-content space-between
+                li
+                    flex 1
+                    display flex
+                    flex-direction column
+                    background yellowgreen 
+                    height 100%
+                
+
+
     .snbuy
         height 1.52rem
         background #f4f4f4

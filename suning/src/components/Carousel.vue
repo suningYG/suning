@@ -20,11 +20,11 @@ export default {
         return {
             images:[
                 
-                'https://oss.suning.com/aps/aps_learning/iwogh/2020/09/26/18/iwoghBannerPicture/85020b472d834925a99e51bf898f62b5.png?format=_is_1242w_610h',
-                "https://image2.suning.cn/uimg/cms/img/160104012944146415.jpg?format=_is_1242w_610h",
-                "https://image2.suning.cn/uimg/cms/img/160104008728485183.jpg?format=_is_1242w_610h",
-                "https://oss.suning.com/adpp/creative_kit/material/picture/20200925-f5193425d2914a6795aa6279c8328b1c760d1072f54f4e32.jpg?format=_is_1242w_610h",
-                "https://oss.suning.com/adpp/creative_kit/material/picture/20200926-45236fecbdce4fada45448c33b7e083f1d30f6b2f27c43d9.jpg?format=_is_1242w_610h",
+                "https://image.suning.cn/uimg/cms/img/160118992858023565.jpg",
+                "https://image.suning.cn/uimg/cms/img/160118984746926637.png",
+                'https://image.suning.cn/uimg/cms/img/160129236927331836.jpg',
+                'https://image.suning.cn/uimg/cms/img/160128621517037420.jpg',
+                'https://image.suning.cn/uimg/cms/img/160119008877932555.jpg'
 
             ]
         }
