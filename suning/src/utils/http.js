@@ -1,8 +1,9 @@
 import axios from "axios"
 
-const get = ({url}) =>{
+const get = ({url,params}) =>{
     return axios({
         url,
+        params
     
     })
     .then(result =>{
