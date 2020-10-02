@@ -79,7 +79,7 @@ export default new VueRouter({
                 {
                     path:"/cate",
                     name:"cate",
-                    component:() => import("../views/home/categeory/Categeory.vue")
+                    component:() => import("../views/home/categeory/Categeory.vue"),
                 },
                 {
                     path:"/live",
@@ -95,11 +95,27 @@ export default new VueRouter({
                     path:"/self",
                     name:"self",
                     component:() => import("../views/home/myyigou/MyYiGou.vue")
-                }
+                },
+               
+                
             ]
             
         },
-
+        {
+            path: '/shopList',
+            name: 'shopList',
+            component: () => import(/* webpackChunkName: "about" */ '../views/home/categeory/ShopList.vue')
+          },
+          {
+            path: '/search',
+            name: 'search',
+            component: () => import(/* webpackChunkName: "about" */ '../views/home/categeory/Search.vue')
+          },
+          {
+            path: '/typeScreen',
+            name: 'typeScreen',
+            component: () => import(/* webpackChunkName: "about" */ '../views/home/categeory/TypeScreen.vue')
+          }
 
     ]
 })
