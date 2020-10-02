@@ -20,7 +20,6 @@
             <later-slid></later-slid>
         </div>
         <router-view></router-view>
-
     </div>
         <!-- <footer>
             <ul>

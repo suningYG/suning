@@ -25,50 +25,55 @@ export default new VueRouter({
                             component:() => import("../views/home/index/Boutique.vue")
                         },
                         {
-                            path:"food",
-                            name:"food",
-                            component:() => import("../views/home/index/Food.vue")
+                            path:"Goods/:id",
+                            name:"Goods",
+                            component:()=>import("../views/home/index/Food.vue"),
                         },
-                        {
-                            path:"mumson",
-                            name:"mumson",
-                            component:() => import("../views/home/index/MumSon.vue")
-                        },
-                        {
-                            path:"percare",
-                            name:"percare",
-                            component:() => import("../views/home/index/PerCare.vue")
-                        },
+                        // {
+                        //     path:"food",
+                        //     name:"food",
+                        //     component:() => import("../views/home/index/Food.vue")
+                        // },
+                        // {
+                        //     path:"mumson",
+                        //     name:"mumson",
+                        //     component:() => import("../views/home/index/MumSon.vue")
+                        // },
+                        // {
+                        //     path:"percare",
+                        //     name:"percare",
+                        //     component:() => import("../views/home/index/PerCare.vue")
+                        // },
                         {
                             path:"import",
                             name:"import",
                             component:() => import("../views/home/index/Import.vue")
                         },
-                        {
-                            path:"phone",
-                            name:"phone",
-                            component:() => import("../views/home/index/Phone.vue")
-                        },
-                        {
-                            path:"checken",
-                            name:"checken",
-                            component:()=>import("../views/home/index/Checken.vue")
-                        },
-                        {
-                            path:"appli",
-                            name:"appli",
-                            component:() => import("../views/home/index/Appli.vue")
-                        },
-                        {
-                            path:"duds",
-                            name:"duds",
-                            component:() => import("../views/home/index/Duds.vue")
-                        },
-                        {
-                            path:"health",
-                            name:"health",
-                            component: () => import("../views/home/index/Health.vue")
-                        }
+                        // {
+                        //     path:"phone",
+                        //     name:"phone",
+                        //     component:() => import("../views/home/index/Phone.vue")
+                        // },
+                        // {
+                        //     path:"checken",
+                        //     name:"checken",
+                        //     component:()=>import("../views/home/index/Checken.vue")
+                        // },
+                        // {
+                        //     path:"appli",
+                        //     name:"appli",
+                        //     component:() => import("../views/home/index/Appli.vue")
+                        // },
+                        // {
+                        //     path:"duds",
+                        //     name:"duds",
+                        //     component:() => import("../views/home/index/Duds.vue")
+                        // },
+                        // {
+                        //     path:"health",
+                        //     name:"health",
+                        //     component: () => import("../views/home/index/Health.vue")
+                        // }
                     ]
                 },
                 {

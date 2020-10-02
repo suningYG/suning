@@ -88,7 +88,8 @@ export default {
                     route:"footwear",
                     text:"鞋靴"
                 },
-            ]
+            ],
+            up:""
         }
     },
     methods: {
@@ -96,11 +97,28 @@ export default {
             let path = this.list.find(value =>{
                 return id === value.id
             } ).route
-            if(this.$route.path === '/index/'+path) return
-            this.$router.push(path)
+            // console.log(this.$route)
+            // console.log(window.location.href)
+            // let url = window.location.href.substr(21)
+            // if(this.$route.path === 'index/Food/'+path){
+            //      return
+            // }
+            if(this.up === id){
+                return
+            } 
+            else if(id!=="001" && id!=='005'){
+                this.$router.push({name:'Goods' ,params:{id:path}})
+            }else if(id === "001"){
+                this.$router.push({path:"/index"})
+            }else{
+                this.$router.push({path:"/index/import"})
+            }
+        
+            this.up = id
             this.active = id
         }
     },
+
     mounted() {
         let r = this.$route.path.substr(7)
         let id = this.list.find(value =>{
