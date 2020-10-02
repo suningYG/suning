@@ -16,7 +16,7 @@ body {
 html {
   background-color: #fff;
   color: #212121;
-  font-size: 100px;
+  font-size: 26.66vw;
   -webkit-user-select: none;
   user-select: none; }
 
@@ -199,7 +199,7 @@ a {
   height: 0;
   content: "\0020"; }
 
-@font-face {
+/* @font-face {
   font-family: yofont;
   src: url(//ss.qunarzz.com/yo/font/1.0.3/yofont.woff) format("woff"), url(//ss.qunarzz.com/yo/font/1.0.3/yofont.ttf) format("truetype"); 
 }
@@ -207,7 +207,7 @@ a {
 @font-face {
   font-family: yofont;
   src: url(./icons/theater.woff) format("woff"), url(./icons/theater.ttf) format("truetype"); 
-}
+} */
 
 .yo-ico {
   font-family: yofont !important;
@@ -215,6 +215,8 @@ a {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   vertical-align: middle; }
-
+.dis_flex{
+  display: flex;
+}
 #app {
   height: 100%; }
