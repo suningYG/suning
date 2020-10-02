@@ -1,13 +1,18 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/"></router-link> 
-    
-    </div>
-    <router-view/>
+  
+        <router-view></router-view>
+     
+ 
   </div>
 </template>
 
-<style lang="stylus">
+<script>
+
+export default {
+
+}
+</script>
+<style lang="stylus" scope>
 
 </style>
