@@ -215,6 +215,8 @@ a {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   vertical-align: middle; }
-
+.dis_flex{
+  display: flex;
+}
 #app {
   height: 100%; }
