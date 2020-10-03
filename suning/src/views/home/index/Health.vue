@@ -31,6 +31,7 @@ export default {
             //     catalogueId:202275
             // }
         })
+        console.log(result)
         this.foodList = JSON.parse(result.data.substring(9,result.data.length-2)).data.msSkus
         this.foodcate = JSON.parse(result.data.substring(9,result.data.length-2)).data.iconTags
     },

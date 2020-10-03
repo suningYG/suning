@@ -5,7 +5,11 @@ module.exports = {
             target: 'https://ifast.suning.com',
             changeOrigin: true,
           },
-    
+          '/mzfs': {
+            target: 'https://ifast.suning.com',
+            changeOrigin: true,
+          },
+
         }
     }
 }
