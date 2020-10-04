@@ -27,7 +27,7 @@ export default new VueRouter({
                         {
                             path:"Goods/:id",
                             name:"Goods",
-                            component:()=>import("../views/home/index/Food.vue"),
+                            component:()=>import("../views/home/index/Goods.vue"),
                         },
                         // {
                         //     path:"food",
