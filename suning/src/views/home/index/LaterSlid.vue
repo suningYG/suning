@@ -9,23 +9,21 @@
             >{{item.text}}</li>
         </ul>
         <div class="arrow">
-<<<<<<< HEAD
+
         <svg t="1600785803652" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="27460" width="0.16rem" height="0.16rem"><path d="M927.804 352.193l-415.804 415.632-415.803-415.632 63.616-63.445 352.209 352.017 352.102-352.017z" p-id="27461" fill="#707070"></path></svg>                   
-=======
+
             <!-- <van-dropdown-menu>
                   <van-dropdown-item v-model="value1" :options="option1" />
             </van-dropdown-menu> -->
                                
->>>>>>> 1cbe5af19b204e6ae3023da622ca64cd6666b0c9
+
         </div>
     </nav>        
 </template>
 <script>
-<<<<<<< HEAD
-export default {
-    data() {
-        return {
-=======
+
+
+
 import Vue from 'vue';
 import { DropdownMenu, DropdownItem } from 'vant';
 
@@ -40,7 +38,7 @@ export default {
                 { text: '新款商品', value: 1 },
                 { text: '活动商品', value: 2 },
             ],
->>>>>>> 1cbe5af19b204e6ae3023da622ca64cd6666b0c9
+
             active:"",
             list:[
                 {
@@ -98,7 +96,8 @@ export default {
                     route:"footwear",
                     text:"鞋靴"
                 },
-            ]
+            ],
+            up:""
         }
     },
     methods: {
@@ -106,11 +105,28 @@ export default {
             let path = this.list.find(value =>{
                 return id === value.id
             } ).route
-            if(this.$route.path === '/index/'+path) return
-            this.$router.push(path)
+            // console.log(this.$route)
+            // console.log(window.location.href)
+            // let url = window.location.href.substr(21)
+            // if(this.$route.path === 'index/Food/'+path){
+            //      return
+            // }
+            if(this.up === id){
+                return
+            } 
+            else if(id!=="001" && id!=='005'){
+                this.$router.push({name:'Goods' ,params:{id:path}})
+            }else if(id === "001"){
+                this.$router.push({path:"/index"})
+            }else{
+                this.$router.push({path:"/index/import"})
+            }
+        
+            this.up = id
             this.active = id
         }
     },
+
     mounted() {
         let r = this.$route.path.substr(7)
         let id = this.list.find(value =>{

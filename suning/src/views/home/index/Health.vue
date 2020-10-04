@@ -1,9 +1,13 @@
 <template>
     <div class="foods">
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         <!-- <van-loading size="24px" vertical type="spinner" v-show="isshow">加载中...</van-loading> -->
 >>>>>>> 1cbe5af19b204e6ae3023da622ca64cd6666b0c9
+=======
+        <!-- <van-loading size="24px" vertical type="spinner" v-show="isshow">加载中...</van-loading> -->
+>>>>>>> wyj
         <TableContent :foodcate="foodcate"></TableContent>
         <LimitedTimeSpike :foodList="foodList"></LimitedTimeSpike>
         <h5>为你推荐</h5>
@@ -15,21 +19,31 @@ import TableContent from "../../../components/TableContent.vue"
 import LimitedTimeSpike from "../../../components/LimitedTimeSpike.vue"
 import { get } from "../../../utils/http.js"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> wyj
   import Vue from 'vue';
   import { Loading } from 'vant';
   Vue.use(Loading);
 
+<<<<<<< HEAD
 >>>>>>> 1cbe5af19b204e6ae3023da622ca64cd6666b0c9
+=======
+>>>>>>> wyj
 export default {
     data() {
         return {
             foodList:[],
             foodcate:[],
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             isshow:false
 >>>>>>> 1cbe5af19b204e6ae3023da622ca64cd6666b0c9
+=======
+            isshow:false
+>>>>>>> wyj
         }
     },
     components:{
@@ -39,10 +53,14 @@ export default {
     async mounted() {
         let result = await get({
 <<<<<<< HEAD
+<<<<<<< HEAD
             url:"/pdua/mpapi/pd/xcxTabPage.do?callback=callback&_=1601344836504&cityCode=010&msCount=20&catalogueId=202253",
 =======
             url:"/pdua/mpapi/pd/xcxTabPage.do?callback=callback&catalogueId=202253",
 >>>>>>> 1cbe5af19b204e6ae3023da622ca64cd6666b0c9
+=======
+            url:"/pdua/mpapi/pd/xcxTabPage.do?callback=callback&catalogueId=202253",
+>>>>>>> wyj
             // query:{
             //     _:1601276261750,
             //     cityCode:010,

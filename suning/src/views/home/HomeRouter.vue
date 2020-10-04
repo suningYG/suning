@@ -9,11 +9,12 @@
 <script>
   import Tabbar from '../../components/TabBarList.vue'
   // import TableBar from '../../components/TableBar.vue'
-<<<<<<< HEAD
-=======
 
 
->>>>>>> 1cbe5af19b204e6ae3023da622ca64cd6666b0c9
+
+
+
+
 export default {
     components:{
       Tabbar,
@@ -30,8 +31,6 @@ export default {
     display flex
     flex-direction column
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 1cbe5af19b204e6ae3023da622ca64cd6666b0c9
+
 </style>

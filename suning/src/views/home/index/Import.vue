@@ -3,36 +3,37 @@
         <TableContent :foodcate="foodcate"></TableContent>
         <!-- <LimitedTimeSpike :foodList="foodList"></LimitedTimeSpike> -->
         <h5>为你推荐</h5>
+        <GoodList :goodsList="goodsList"></GoodList>
     </div>
 </template>
 
 <script>
 import TableContent from "../../../components/TableContent.vue"
-// import LimitedTimeSpike from "../../../components/LimitedTimeSpike.vue"
 import { get } from "../../../utils/http.js"
+import GoodList from "../../../components/GoodsLists.vue"
 export default {
     data() {
         return {
-            foodList:[],
+            goodsList:[],
             foodcate:[],
         }
     },
     components:{
         TableContent,
-        // LimitedTimeSpike
+        GoodList
     },
     async mounted() {
         let result = await get({
-            url:"/pdua/mpapi/pd/xcxTabPage.do?callback=callback&_=1601344836504&cityCode=010&msCount=20&catalogueId=192943",
-            // query:{
-            //     _:1601276261750,
-            //     cityCode:010,
-            //     msCount:20,
-            //     catalogueId:202275
-            // }
+            url:"/pdua/mpapi/pd/xcxTabPage.do?callback=callback",
+            params:{
+                flag:1,
+                msCount:20,
+                catalogueId:192943
+            }
         })
-        // this.foodList = JSON.parse(result.data.substring(9,result.data.length-2)).data.msSkus
+        this.goodsList = JSON.parse(result.data.substring(9,result.data.length-2)).data.skus
         this.foodcate = JSON.parse(result.data.substring(9,result.data.length-2)).data.iconTags
+        
     },
     methods: {
 

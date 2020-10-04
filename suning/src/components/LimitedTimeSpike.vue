@@ -3,12 +3,14 @@
         <div class="limitBox">
             <header>
                 <h1>
-<<<<<<< HEAD
+
                     <div></div>
                     <span>限时秒杀</span>
-=======
+
                     <img src="../assets/imgs/秒杀头部.png" alt="">
->>>>>>> 1cbe5af19b204e6ae3023da622ca64cd6666b0c9
+
+                    <img src="../assets/imgs/秒杀头部.png" alt="">
+
                 </h1>
             </header>
             <section>
@@ -42,11 +44,13 @@
 <script>
 export default {
     props:{
-<<<<<<< HEAD
+
         foodList:{
-=======
+            type:Array,
+        },
+
         goodsList:{
->>>>>>> 1cbe5af19b204e6ae3023da622ca64cd6666b0c9
+
             type:Array,
             required:true
         }
@@ -58,19 +62,14 @@ export default {
     },
     computed: {
          limitTime(){
-<<<<<<< HEAD
-           let arr = this.foodList.filter((value,index)=>{
-=======
+
            let arr = this.goodsList.filter((value,index)=>{
->>>>>>> 1cbe5af19b204e6ae3023da622ca64cd6666b0c9
+
                return value.promotionInfo === "秒杀"
            })
            return arr
         }
-<<<<<<< HEAD
-=======
-        
->>>>>>> 1cbe5af19b204e6ae3023da622ca64cd6666b0c9
+
     },
     filters:{
         firstPrice(value){
@@ -92,7 +91,7 @@ export default {
 .limite
     width 100%
     height 4.18rem
-<<<<<<< HEAD
+
    
     padding 0 0.12rem
     .limitBox
@@ -101,20 +100,26 @@ export default {
         border-radius 15px
         padding 0 0.09rem
         background yellowgreen 
-=======
+
     background #eeeeee
     padding 0.1rem 0.12rem
     .limitBox
         height 100%
         width 3.51rem
->>>>>>> 1cbe5af19b204e6ae3023da622ca64cd6666b0c9
+
+    background #eeeeee
+    padding 0.1rem 0.12rem
+    .limitBox
+        height 100%
+        width 3.51rem
+
         header 
             height 0.4rem
             h1
                 display flex
                 align-items center
                 background skyblue
-<<<<<<< HEAD
+
                 div
                     width  0.18rem
                     height 0.18rem
@@ -125,11 +130,15 @@ export default {
                     height 0.4rem
                     font-size 0.16rem
                     line-height 0.4rem
-=======
+
                 img 
                     width 100%
                     height 100%
->>>>>>> 1cbe5af19b204e6ae3023da622ca64cd6666b0c9
+
+                img 
+                    width 100%
+                    height 100%
+
         section 
             height 3.72rem
             display flex
