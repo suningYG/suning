@@ -10,6 +10,13 @@ module.exports = {
             changeOrigin: true,
           },
 
+
+          '/msf': {
+            target: 'https://ifast.suning.com',
+            changeOrigin: true,
+          },
+    
+
         }
     }
 }

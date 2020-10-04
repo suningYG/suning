@@ -80,23 +80,55 @@
             </div>
             <div class="purchase">
                 <div class="pucharbox">
+<<<<<<< HEAD
                     <img src="../../../assets/imgs/oneMoney.png" alt="">
+=======
+                    <img src="https://image.suning.cn/uimg/cms/img/159792519589758644.png" alt="">
+>>>>>>> 1cbe5af19b204e6ae3023da622ca64cd6666b0c9
                 </div>
             </div>
             <div class="advater">
                 <img src="../../../assets/imgs/advater.png" alt="">
             </div>
+<<<<<<< HEAD
+=======
+            
+            <img src="https://image.suning.cn/uimg/cms/img/160128472441540158.gif" alt="" class="botbox">
+            <GoodList :goodsList="goodsList"></GoodList>
+>>>>>>> 1cbe5af19b204e6ae3023da622ca64cd6666b0c9
         </main>
 </template>
 <script>
 import Carousel from "../../../components/Carousel.vue"
 import LaterList from "./LaterLists.vue"
+<<<<<<< HEAD
 import BuyButton from "../../../components/BuyButton.vue"
 export default {
     components:{
         BuyButton,
         Carousel,
         LaterList
+=======
+import GoodList from "../../../components/GoodsLists.vue"
+import {get} from '../../../utils/http.js'
+export default {
+    components:{
+        GoodList,
+        Carousel,
+        LaterList,
+    },
+    data() {
+        return {
+            goodsList:[]
+        }
+    },
+    async mounted(){
+        let result = await get({
+            url:"/msf/mpapi/wapIndex/getNewSmallGuessLike.do?c=&cityCode=010&u=6132551008&count=50&flag=1&sceneIds=13-30&sceneIds1=21-26&sceneIds2=21-27&sceneIds3=21-28&count1=100",
+        })
+        this.goodsList = result.data.data[0].skus
+        // console.log(this.goodsList)
+>>>>>>> 1cbe5af19b204e6ae3023da622ca64cd6666b0c9
     }
 }
 </script>
@@ -243,8 +275,11 @@ export default {
         .pucharbox
             width 3.47rem
             height 0.99rem
+<<<<<<< HEAD
             background blue
             border-radius 10px
+=======
+>>>>>>> 1cbe5af19b204e6ae3023da622ca64cd6666b0c9
             img 
                 width 100%
                 height 100%
@@ -258,5 +293,14 @@ export default {
         img 
             width 100%
             height 100%
+<<<<<<< HEAD
 
+=======
+    .botbox
+        width 1.35rem
+        height 0.35rem
+        position fixed
+        bottom 0.5rem
+        left calc(50% - 0.675rem )
+>>>>>>> 1cbe5af19b204e6ae3023da622ca64cd6666b0c9
 </style>

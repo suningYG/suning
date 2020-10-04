@@ -1,5 +1,9 @@
 <template>
     <div class="foods">
+<<<<<<< HEAD
+=======
+        <!-- <van-loading size="24px" vertical type="spinner" v-show="isshow">加载中...</van-loading> -->
+>>>>>>> 1cbe5af19b204e6ae3023da622ca64cd6666b0c9
         <TableContent :foodcate="foodcate"></TableContent>
         <LimitedTimeSpike :foodList="foodList"></LimitedTimeSpike>
         <h5>为你推荐</h5>
@@ -10,11 +14,22 @@
 import TableContent from "../../../components/TableContent.vue"
 import LimitedTimeSpike from "../../../components/LimitedTimeSpike.vue"
 import { get } from "../../../utils/http.js"
+<<<<<<< HEAD
+=======
+  import Vue from 'vue';
+  import { Loading } from 'vant';
+  Vue.use(Loading);
+
+>>>>>>> 1cbe5af19b204e6ae3023da622ca64cd6666b0c9
 export default {
     data() {
         return {
             foodList:[],
             foodcate:[],
+<<<<<<< HEAD
+=======
+            isshow:false
+>>>>>>> 1cbe5af19b204e6ae3023da622ca64cd6666b0c9
         }
     },
     components:{
@@ -23,7 +38,11 @@ export default {
     },
     async mounted() {
         let result = await get({
+<<<<<<< HEAD
             url:"/pdua/mpapi/pd/xcxTabPage.do?callback=callback&_=1601344836504&cityCode=010&msCount=20&catalogueId=202253",
+=======
+            url:"/pdua/mpapi/pd/xcxTabPage.do?callback=callback&catalogueId=202253",
+>>>>>>> 1cbe5af19b204e6ae3023da622ca64cd6666b0c9
             // query:{
             //     _:1601276261750,
             //     cityCode:010,
@@ -31,7 +50,10 @@ export default {
             //     catalogueId:202275
             // }
         })
+<<<<<<< HEAD
         console.log(result)
+=======
+>>>>>>> 1cbe5af19b204e6ae3023da622ca64cd6666b0c9
         this.foodList = JSON.parse(result.data.substring(9,result.data.length-2)).data.msSkus
         this.foodcate = JSON.parse(result.data.substring(9,result.data.length-2)).data.iconTags
     },

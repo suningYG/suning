@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
     <div class="EmptyCar">
         <header>购物车</header>
         <main>
@@ -10,6 +11,12 @@
 
         </footer>
     </div>
+=======
+    <div>
+    goodscar        
+ 
+   </div>
+>>>>>>> 1cbe5af19b204e6ae3023da622ca64cd6666b0c9
 </template>
 <script>
 export default {
@@ -17,6 +24,7 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
+<<<<<<< HEAD
 .EmptyCar
     height 100%
     display flex
@@ -61,4 +69,7 @@ export default {
             border-radius 0.05rem
             margin-top 0.2rem
             color #000    
+=======
+
+>>>>>>> 1cbe5af19b204e6ae3023da622ca64cd6666b0c9
 </style>
