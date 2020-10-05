@@ -131,7 +131,7 @@ export default {
 <style lang="stylus" scoped>
 nav
     height 0.38rem
-    background yellowgreen
+   
     overflow-x auto
     display flex
     position relative

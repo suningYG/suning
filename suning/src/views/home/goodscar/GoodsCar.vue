@@ -4,9 +4,9 @@
             <h1>购物车</h1>
         </header>
         <div class="position" v-if="this.$store.state.shopCar.length > 0">
-            <svg t="1601717744183" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="14080" width="0.1rem" height="0.13rem"><path d="M640 426.666667c0 72.533333-55.466667 128-128 128s-128-55.466667-128-128 55.466667-128 128-128 128 55.466667 128 128z m213.333333 0c0 85.333333-29.866667 166.4-85.333333 226.133333L512 938.666667l-256-285.866667C200.533333 593.066667 170.666667 512 170.666667 426.666667c0-187.733333 153.6-341.333333 341.333333-341.333334s341.333333 153.6 341.333333 341.333334z m-115.2 196.266666C785.066667 567.466667 810.666667 499.2 810.666667 426.666667c0-166.4-132.266667-298.666667-298.666667-298.666667S213.333333 260.266667 213.333333 426.666667c0 72.533333 25.6 140.8 72.533334 196.266666 8.533333 8.533333 21.333333 25.6 42.666666 42.666667l85.333334 102.4 98.133333 106.666667 98.133333-106.666667 89.6-98.133333c12.8-21.333333 25.6-34.133333 38.4-46.933334z" fill="#f7ce46" p-id="14081"></path></svg>
+            <svg t="1601717744183" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="14080" width="0.15rem" height="0.15rem"><path d="M640 426.666667c0 72.533333-55.466667 128-128 128s-128-55.466667-128-128 55.466667-128 128-128 128 55.466667 128 128z m213.333333 0c0 85.333333-29.866667 166.4-85.333333 226.133333L512 938.666667l-256-285.866667C200.533333 593.066667 170.666667 512 170.666667 426.666667c0-187.733333 153.6-341.333333 341.333333-341.333334s341.333333 153.6 341.333333 341.333334z m-115.2 196.266666C785.066667 567.466667 810.666667 499.2 810.666667 426.666667c0-166.4-132.266667-298.666667-298.666667-298.666667S213.333333 260.266667 213.333333 426.666667c0 72.533333 25.6 140.8 72.533334 196.266666 8.533333 8.533333 21.333333 25.6 42.666666 42.666667l85.333334 102.4 98.133333 106.666667 98.133333-106.666667 89.6-98.133333c12.8-21.333333 25.6-34.133333 38.4-46.933334z" fill="#f7ce46" p-id="14081"></path></svg>
             <p>北京市北京昌平区沙河镇沙河路18号北京科技职业学院</p>
-            <button>编辑</button>
+            <button @click="writeHandler">编辑</button>
         </div>
 
         <main>
@@ -29,7 +29,7 @@
                     <h2>您的购物车还是空的，快来挑选好货吧</h2>
                 </div>
             </div>
-            <div class="shopCarList" v-else v-for="(item,index) in this.$store.state.shopCar" :key="index">
+            <div class="shopCarList" v-else v-for="item in this.$store.state.shopCar" :key="item.sugGoodsCode">
                 <div class="shopname">
                     <van-checkbox v-model="checked" checked-color="#f7ce46" icon-size="0.2rem"></van-checkbox>
                     <div class="shop">
@@ -69,16 +69,7 @@
                     <i>￥</i>
                     <em>{{item.price | firstPrice}}</em>
                     <h5>{{item.price | lastPoint}}</h5>
-                        <div class="num">
-                            <van-stepper
-                              max="20"
-                              v-model="goodsNum" 
-                              theme="round" 
-                              button-size="0.2rem" 
-                              disable-input 
-                              input-width="0.44rem"
-                              />
-                        </div>
+                    <Steeper :item="item"></Steeper>
                     </div>
                 </div>
                 <template #right>
@@ -89,7 +80,9 @@
             <div class="like">
                 <img src="../../../assets/imgs/youlike.png" alt="">
             </div>
-            <GoodsCarList :recommend="recommend"></GoodsCarList>
+            <GoodsCarList 
+            :recommend="recommend"
+            ></GoodsCarList>
             <van-popup 
                 v-model="show"
                 position="bottom" 
@@ -107,20 +100,23 @@
         </main>
         <div class="toPrice" v-if="this.$store.state.shopCar.length > 0">
             <van-checkbox v-model="checked" checked-color="#f7ce46" icon-size="0.2rem">全选</van-checkbox>
-            <div class="toPirceBox">
-                <div class="price">
-                    <span>合计：</span>
-                    <i>￥</i>
-                    <p>27.80</p>
+                <div class="toPirceBox" v-if="!write">
+                    <div class="price">
+                        <span>合计：</span>
+                        <i>￥</i>
+                        <p>{{toPrice}}</p>
+                    </div>
+                    <div class="free">
+                        免运费
+                    </div>
                 </div>
-                <div class="free">
-                    免运费
+                <div class="settlment" v-if="!write">
+                    去结算
                 </div>
-                
-            </div>
-            <div class="settlment">
-                去结算
-            </div>
+                <div class="settlment" v-else>
+                    删除
+                </div>
+
         </div>
    </div>
 </template>
@@ -129,7 +125,7 @@ import GoodsCarList from "../../../components/goodsCarList/GoodsCarList.vue"
 import Vue from 'vue';
 import { Checkbox, CheckboxGroup ,Stepper,SwipeCell,Button, Popup} from 'vant';
 import { get } from "../../../utils/http.js"
-
+import Steeper from "../../../components/goodsCarList/Steeper.vue"
 Vue.use(Checkbox);
 Vue.use(CheckboxGroup);
 Vue.use(Stepper);
@@ -147,10 +143,21 @@ export default {
             goodsNum:1,
             show: false,
             recommend:[],
+            write:false
+        }
+    },
+    computed: {
+        toPrice(){
+            let toPrice = this.$store.state.shopCar.reduce((value,item)=>{
+                return value + (Number(item.price)*item.count)
+            },0)
+            return toPrice.toFixed(2)
+          
         }
     },
     components:{
-        GoodsCarList
+        GoodsCarList,
+        Steeper
     },
     async mounted(){
     
@@ -158,7 +165,7 @@ export default {
                 url:"/tuijian/mpapi/recommend-portal/recommend/paramsBiz.jsonp?sceneIds=32-61&u=6132551008&count=16&callback=callback"
             })
             this.recommend = JSON.parse(result.data.substring(9,result.data.length-2)).sugGoods[0].skus
-            console.log(this.recommend)
+            // console.log(this.recommend)
     },
     methods:{
         showPopup() {
@@ -167,6 +174,27 @@ export default {
         delGoodsHandler(id){
             this.$store.commit('delGoods',id)
         },
+        lessNumHandler(id){
+
+        },
+        plusNumHandler(id){
+            let good = this.$store.state.shopCar.find(value=>{
+                return value.sugGoodsCode === id
+            })
+            console.log(good)
+            let count = document.querySelector(".count")
+            good.count = count.value
+            good.count++
+            count.value = good.count
+        },
+        writeHandler(){
+            this.write = !this.write
+            if(this.write) {
+                event.target.innerHTML = '完成'
+            }else{
+                event.target.innerHTML = "编辑"
+            }
+        }
     },
     filters:{
         shopName(value){
@@ -218,7 +246,7 @@ export default {
         button
             height 100%
             background-color #ffffff
-            width 0.31rem
+            width 0.32rem
             border none
             font-size 0.14rem
             color #91aff8
@@ -229,16 +257,17 @@ export default {
         margin-bottom 0.5rem
         padding 0 0.12rem
         position relative
-        .van-checkbox
-            color #000000
         .toPirceBox
+            flex 1
+            padding-right 1.1rem
             padding-top 0.04rem
-            margin-left 0.8rem
             display flex
             flex-direction column
             .price
+            
                 display flex
                 align-items flex-end
+                justify-content flex-end
                 i 
                     font-size 0.1rem
                     color #eb5435
@@ -266,6 +295,13 @@ export default {
             line-height 0.45rem
             position absolute
             right 0.12rem
+    .writeInfo
+        height 0.45rem
+        background-color red
+        display flex
+        margin-bottom 0.5rem
+        padding 0 0.12rem
+        position relative
 
     main
         flex 1
@@ -410,17 +446,8 @@ export default {
                         font-size 0.1rem
                         color #eb5435
                         margin-top 0.02rem
-                    .num
-                        position absolute
-                        right 0
-                        top 0.07rem
-                        height 0.27rem
-                        width 0.95rem
-                        border 1px solid #cccccc
-                        border-radius 20px
-                        display flex
-                        align-items center
-                        justify-content center
+                    
+
 
 
         .carempty

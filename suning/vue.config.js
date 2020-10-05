@@ -12,6 +12,10 @@ module.exports = {
           '/tuijian':{
             target:"https://ifast.suning.com",
             changeOrigin: true
+          },
+          '/api':{
+            target:'https://lib.suning.com',
+            changeOrigin:true
           }
     
         }

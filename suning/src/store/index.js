@@ -14,15 +14,16 @@ const store = new Vuex.Store({
                 return 1
             })
             if(isRep){
-                let count = document.querySelector(".van-stepper__input")
-                let lessBtn = document.querySelector(".van-stepper__minus")
-                let c =count.attributes['aria-valuenow'].nodeValue
-                let b = (++c).toString()
-                count.setAttribute('aria-valuenow',b)
-                count.value = b
-                lessBtn.classList.remove("van-stepper__minus--disabled")
+                // let count = document.querySelector(".count")
+                // let lessBtn = document.querySelector(".less")
+                // let c =count.value
+                // let b = (++c).toString()
+                // count.value = b
+                // info.count++
+                // console.log(info)
                 return
             }else{
+                info.count=1
                 state.shopCar.push(info)
             }
             localStorage.setItem("shopCar",JSON.stringify(state.shopCar))
