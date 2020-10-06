@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state:{
-        shopCar: JSON.parse(localStorage.getItem("shopCar"))
+        shopCar: JSON.parse(localStorage.getItem("shopCar")),
+        city:'北京'
     },
     mutations:{
         addGoods(state,info){
@@ -33,6 +34,10 @@ const store = new Vuex.Store({
                 if(value.sugGoodsCode === id) return index
             })
             state.shopCar.splice(index,1)
+            localStorage.setItem("shopCar",JSON.stringify(state.shopCar))
+        },
+        delAllGoods(state){
+            state.shopCar.length = 0
             localStorage.setItem("shopCar",JSON.stringify(state.shopCar))
         }
     }

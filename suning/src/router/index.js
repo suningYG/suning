@@ -96,6 +96,7 @@ export default new VueRouter({
                     name:"self",
                     component:() => import("../views/home/myyigou/MyYiGou.vue")
                 },
+
                
                 
             ]
@@ -115,7 +116,25 @@ export default new VueRouter({
             path: '/typeScreen',
             name: 'typeScreen',
             component: () => import(/* webpackChunkName: "about" */ '../views/home/categeory/TypeScreen.vue')
-          }
+          },
+          {
+            path:"/position",
+            name:'position',
+            redirect:'/posCity',
+            component:()=> import("../views/city/Position.vue"),
+            children:[
+                {
+                    path:'/cityList',
+                    name:'cityList',
+                    component:() => import("../views/city/CityList.vue")
+                },
+                {
+                    path:'/posCity',
+                    name:'posCity',
+                    component:() => import("../views/city/PosCity.vue")
+                }
+            ]
+        },
 
     ]
 })

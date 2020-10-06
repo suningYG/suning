@@ -4,9 +4,49 @@
             <h1>购物车</h1>
         </header>
         <div class="position" v-if="this.$store.state.shopCar.length > 0">
-            <svg t="1601717744183" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="14080" width="0.15rem" height="0.15rem"><path d="M640 426.666667c0 72.533333-55.466667 128-128 128s-128-55.466667-128-128 55.466667-128 128-128 128 55.466667 128 128z m213.333333 0c0 85.333333-29.866667 166.4-85.333333 226.133333L512 938.666667l-256-285.866667C200.533333 593.066667 170.666667 512 170.666667 426.666667c0-187.733333 153.6-341.333333 341.333333-341.333334s341.333333 153.6 341.333333 341.333334z m-115.2 196.266666C785.066667 567.466667 810.666667 499.2 810.666667 426.666667c0-166.4-132.266667-298.666667-298.666667-298.666667S213.333333 260.266667 213.333333 426.666667c0 72.533333 25.6 140.8 72.533334 196.266666 8.533333 8.533333 21.333333 25.6 42.666666 42.666667l85.333334 102.4 98.133333 106.666667 98.133333-106.666667 89.6-98.133333c12.8-21.333333 25.6-34.133333 38.4-46.933334z" fill="#f7ce46" p-id="14081"></path></svg>
+            <svg t="1601717744183" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="14080" width="0.15rem" height="0.15rem" @click="posClickHandler"><path d="M640 426.666667c0 72.533333-55.466667 128-128 128s-128-55.466667-128-128 55.466667-128 128-128 128 55.466667 128 128z m213.333333 0c0 85.333333-29.866667 166.4-85.333333 226.133333L512 938.666667l-256-285.866667C200.533333 593.066667 170.666667 512 170.666667 426.666667c0-187.733333 153.6-341.333333 341.333333-341.333334s341.333333 153.6 341.333333 341.333334z m-115.2 196.266666C785.066667 567.466667 810.666667 499.2 810.666667 426.666667c0-166.4-132.266667-298.666667-298.666667-298.666667S213.333333 260.266667 213.333333 426.666667c0 72.533333 25.6 140.8 72.533334 196.266666 8.533333 8.533333 21.333333 25.6 42.666666 42.666667l85.333334 102.4 98.133333 106.666667 98.133333-106.666667 89.6-98.133333c12.8-21.333333 25.6-34.133333 38.4-46.933334z" fill="#f7ce46" p-id="14081"></path></svg>
             <p>北京市北京昌平区沙河镇沙河路18号北京科技职业学院</p>
-            <button @click="writeHandler">编辑</button>
+            <button @click="writeHandler" class="write">编辑</button>
+            <van-popup 
+                v-model="posShow"
+                position="bottom" 
+                round 
+                :style="{ height: '70%' }" 
+                closeable>
+                <div class="head">
+                    选择地址
+                </div>
+                <section>
+                    <div class="nowPos">
+                        <svg t="1601899539766" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8204" width="0.24rem" height="0.24rem">
+                        <path d="M512 137.05728c73.22112 0 142.94016 26.81344 196.3264 75.49952 59.69408 54.44096 93.58848 128.73216 95.4368 209.18784 1.85344 80.512-28.47744 156.20096-85.4016 213.12-46.4128 46.4128-135.09632 157.12768-204.3136 245.7856-70.74304-88.25856-161.32096-198.69696-208.4096-245.7856-56.92416-56.92416-87.25504-132.608-85.4016-213.12 1.84832-80.45056 35.74272-154.74176 95.4368-209.18784C369.05984 163.87072 438.77888 137.05728 512 137.05728m0-71.68c-87.87968 0-175.75936 31.40608-244.62848 94.22336-154.27072 140.6976-158.40768 379.96544-12.42112 525.95712 48.5376 48.5376 150.46144 174.01856 211.23584 250.01472a61.0816 61.0816 0 0 0 47.96416 23.06048c18.08896 0 36.1728-7.90528 48.45568-23.68 59.45856-76.34944 158.93504-201.89184 206.4384-249.3952 145.99168-145.98656 141.8496-385.2544-12.42112-525.95712-68.864-62.81728-156.74368-94.22336-244.62336-94.22336z" fill="#ec612a" p-id="8205">
+                        </path>
+                        <path d="M512 315.86304c50.816 0 92.16 41.344 92.16 92.16s-41.344 92.16-92.16 92.16-92.16-41.344-92.16-92.16 41.344-92.16 92.16-92.16m0-71.68c-90.48576 0-163.84 73.35424-163.84 163.84 0 90.48576 73.35424 163.84 163.84 163.84s163.84-73.35424 163.84-163.84c0-90.48576-73.35424-163.84-163.84-163.84z" fill="#ec612a" p-id="8206"></path></svg>                  
+                        <p>
+                            送至：北京市昌平区千锋互联科技(沙河校区店)
+                        </p>
+                    </div>
+                    <div class="currLocation">
+                        <span>
+                            当前定位
+                        </span>
+                        <span>
+                            <svg t="1601900850723" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9364" width="0.18rem" height="0.18rem"><path d="M833.264 370.463c-19.328-38.153-44.711-73.248-75.595-104.132-157.951-157.951-412.905-159.245-569.457-2.694C31.661 420.19 32.955 675.143 190.906 833.094c157.951 157.951 412.905 159.245 569.457 2.694 46.455-46.456 80.028-102.65 98.94-164.246 4.445-14.481-3.69-29.825-18.17-34.271-14.482-4.446-29.826 3.689-34.272 18.17-16.299 53.087-45.21 101.478-85.288 141.557-135.04 135.04-355.261 133.922-491.877-2.694C93.08 657.688 91.962 437.467 227.002 302.427c135.04-135.04 355.261-133.922 491.877 2.694 27.856 27.855 50.507 59.605 67.457 94.162l-92.649-28.326c-14.084-4.306-29.028 3.737-33.377 17.965-4.35 14.228 3.54 29.253 17.625 33.558l153.009 46.78c7.042 2.153 14.299 1.219 20.339-2.032a26.993 26.993 0 0 0 13.038-15.933l47.257-154.57c4.35-14.228-3.541-29.253-17.625-33.558-14.084-4.306-29.028 3.737-33.378 17.965l-27.311 89.331z" p-id="9365" fill="#8a8a8a"></path></svg>
+                            刷新定位
+                        </span>
+                    </div>
+                    <div class="dress">
+                        <svg t="1601901312452" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10274" width="0.24rem" height="0.24rem"><path d="M512 861.090909c-193.163636 0-349.090909-155.927273-349.090909-349.090909S318.836364 162.909091 512 162.909091s349.090909 155.927273 349.090909 349.090909-155.927273 349.090909-349.090909 349.090909z m0-651.636364C344.436364 209.454545 209.454545 344.436364 209.454545 512s134.981818 302.545455 302.545455 302.545455 302.545455-134.981818 302.545455-302.545455S679.563636 209.454545 512 209.454545z" fill="#ec612a" p-id="10275"></path><path d="M500.363636 512m-116.363636 0a116.363636 116.363636 0 1 0 232.727273 0 116.363636 116.363636 0 1 0-232.727273 0Z" fill="#ec612a" p-id="10276"></path><path d="M849.454545 488.727273h116.363637v46.545454h-116.363637zM34.909091 488.727273h116.363636v46.545454h-116.363636zM477.090909 861.090909h46.545455v116.363636h-46.545455zM477.090909 46.545455h46.545455v116.363636h-46.545455z" fill="#ec612a" p-id="10277"></path></svg>
+                        <p>
+                            北京市北京昌平区北京科技职业学院-体创学院
+                        </p>
+                    </div>
+                </section>
+                <div class="btn">
+                    <button class="selPos" @click="morePosHandler">选择更多地址</button>
+                </div>
+                
+            </van-popup>
         </div>
 
         <main>
@@ -95,7 +135,9 @@
                 <section>
 
                 </section>
-                <button>确&nbsp;定</button>
+                <div class="btn">
+                    <button>确&nbsp;定</button>
+                </div>
             </van-popup>
         </main>
         <div class="toPrice" v-if="this.$store.state.shopCar.length > 0">
@@ -113,7 +155,8 @@
                 <div class="settlment" v-if="!write">
                     去结算
                 </div>
-                <div class="settlment" v-else>
+
+                <div class="settlment" v-else @click="delAllGoods">
                     删除
                 </div>
 
@@ -143,7 +186,8 @@ export default {
             goodsNum:1,
             show: false,
             recommend:[],
-            write:false
+            write:false,
+            posShow:false
         }
     },
     computed: {
@@ -194,6 +238,16 @@ export default {
             }else{
                 event.target.innerHTML = "编辑"
             }
+        },
+        posClickHandler(){
+            this.posShow = true
+        },
+        morePosHandler(){
+            this.$router.push({name:"position"})
+        },
+        delAllGoods(){
+            this.$store.commit("delAllGoods")
+            this.$forceUpdate()
         }
     },
     filters:{
@@ -237,19 +291,48 @@ export default {
         display flex
         align-items center
         padding 0 0.12rem
-        
         p
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
             margin-left 0.08rem
-        button
+        .write
             height 100%
             background-color #ffffff
             width 0.32rem
             border none
             font-size 0.14rem
             color #91aff8
+        .selPos
+            background-color #ec702d
+            color #ffffff
+        section
+            
+            .nowPos
+                padding 0 0.12rem
+                height 0.45rem
+                background-color #fdf3eb
+                display flex
+                align-items center
+                p
+                    color #ec612a
+            .currLocation
+                height 0.32rem
+            
+                display flex
+                justify-content space-between
+                align-items center
+                padding 0 0.12rem
+                color #a4a4a4
+            .dress
+                height 0.48rem
+                
+                display flex
+                align-items center
+                padding 0 0.12rem
+                border_1px(0 0 1px 0)
+                
+
     .toPrice
         height 0.45rem
         background-color #ffffff
@@ -529,7 +612,7 @@ export default {
     bottom 49px
     background-color #f5f5f5
 .van-popup
-    padding  0 0.12rem 0.1rem
+    padding-bottom 0.1rem
     display flex
     flex-direction column
     .van-popup__close-icon--top-right
@@ -550,15 +633,16 @@ export default {
         font-weight bold
     section 
         flex 1
-
-    button
-        height 0.46rem
-        width 100%
-        background-color #f7ce46
-        border none 
-        font-size 0.16rem
-        font-weight bold
-        border-radius 12px
+    .btn
+        padding 0 0.12rem
+        button
+            height 0.46rem
+            width 100%
+            background-color #f7ce46
+            border none 
+            font-size 0.16rem
+            font-weight bold
+            border-radius 12px
 .van-checkbox__label
     margin-top 0.05rem
     font-size 0.14rem

@@ -16,6 +16,14 @@ module.exports = {
           '/api':{
             target:'https://lib.suning.com',
             changeOrigin:true
+          },
+          '/nsafs':{
+            target:'https://ifast.suning.com',
+            changeOrigin:true
+          },
+          '/ip-web':{
+            target:'https://ipservice.suning.com',
+            changeOrigin:true
           }
     
         }

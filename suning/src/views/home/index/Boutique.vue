@@ -124,7 +124,6 @@ export default {
         })
         this.tuijian = JSON.parse(res.data.substring(9,res.data.length-2)).sugGoods[0].skus
         this.tuijian.length = 4
-        console.log(this.tuijian)
     }
 }
 </script>
