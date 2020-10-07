@@ -1,91 +1,134 @@
 <template>
   <div class="TypeScreen">
- <header>
+    <header>
       <van-nav-bar
-  title="筛选"
-  left-text=""
-  left-arrow
-  @click-left="onClickLeft"
-  @click-right="onClickRight"
-/>
- </header>
-
- <SelectCom v-for="(item,index) in date" :key="index" :list="item.list" :title="item.title" :num="item.num" ></SelectCom>
-<!-- <div class="components">
-    <div class="top"><h2>服务</h2><span></span></div>
-    <ul>
-        <li>北京</li>
-    </ul>
-</div>
-<div class="prices">
-    <div class="top"><h2>价格区间</h2><span></span></div>
-    <div><input type="number"><span></span><input type="text"></div>
-</div> -->
+        title="筛选"
+        left-text=""
+        left-arrow
+        @click-left="onClickLeft"
+        @click-right="onClickRight"
+      />
+    </header>
+    <div class="content">
+      <SelectCom
+        v-for="(item, index) in list"
+        :key="index"
+        :list="item.list"
+        :title="item.title"
+        :num="item.num"
+      ></SelectCom>
+    </div>
+    <div class="bott">
+      <span @click="reset">重选</span>
+      <span @click="sure" class="sure">确定</span>
+    </div>
   </div>
 </template>
 
 <script>
-import Vue from 'vue';
-import { NavBar,Toast } from 'vant';
+import Vue from "vue";
+import { NavBar, Toast } from "vant";
 Vue.use(NavBar);
-import SelectCom from '../../../components/shopList/selectCom'
+import SelectCom from "../../../components/shopList/selectCom";
 export default {
   name: "TypeScreen",
-   data() {
+  data(){
     return {
-        date:[
-            {
-                title:"服务",
-                list:["苏宁易购","免费快递","我的服务","苏宁易","免费递","的服务","易购","免费","的务"],
-                num:false
-            },
-              {
-                title:"服务",
-                list:["苏宁易购","免费快递","我的服务","苏宁易","免费递","的服务","易购","免费","的务"],
-                num:true
-            },
-             {
-                title:"收货地",
-                list:["北京"],
-                num:false
-            },
-             {
-                title:"价格区间",
-                list:[],
-                num:false
-            },
-             {
-                title:"相关分类",
-                list:["苏宁易购","免费快递","我的服务","苏宁易","免费递","的服务","易购","免费","的务"],
-                num:true
-            },
-        ]
+      list:[
+        {
+          title: "服务",
+          list: [{name:'苏宁服务',value:-1},{name:'有货商品',value:1},{name:'苏宁国际',value:2}],
+          num: true,
+        },
+        {
+          title: "收货地",
+          list: ["北京"],
+          num: false,
+        },
+        {
+          title: "价格区间",
+          list: [],
+          num: false,
+        },
+      ],
     };
   },
-  components:{
-      SelectCom
+  mounted() {
+    let res = this.$route.params.res;
+    if(res.hotDirectory.length!==0)this.list.push({ title: '相关分类', list: res.hotDirectory ,num:false});
+    res.filters.forEach((item) => {
+      this.list.push({ title: item.fieldDesc, list: item.values ,num:true});
+    });
+  },
+  components: {
+    SelectCom,
   },
   methods: {
     onClickLeft() {
-      Toast('返回');
+      this.$router.go(-1);
     },
     onClickRight() {
-      Toast('按钮');
+      Toast("按钮");
     },
+    reset() {},
+    sure() {},
   },
 };
 </script>
 
 <style lang="stylus" scoped>
-.TypeScreen
-    display flex
-    flex-direction column
-    background-color #fefefe
-    width 100%
-    .van-nav-bar
-       ::before
-            color #000
-            font-size .17rem 
-    
-            
+@import '../../../assets/stylus/border.styl';
+@import '../../../assets/stylus/ellipsis.styl';
+
+.TypeScreen {
+  display: flex;
+  flex-direction: column;
+  background-color: #fefefe;
+  width: 100%;
+  height: 100%;
+
+  .van-nav-bar {
+    ::before {
+      color: #000;
+      font-size: 0.17rem;
+    }
+  }
+
+  header {
+    height: 0.39rem;
+  }
+
+  .content {
+    flex: 1;
+    overflow-y: scroll;
+    padding-bottom: 0.1rem;
+    border-bottom: 1px solid #f2f2f2;
+  }
+
+  .bott {
+    width: 3.58rem;
+    height: 0.34rem;
+    line-height: 0.34rem;
+    display: flex;
+    justify-content: space-around;
+    border-radius: 0;
+    margin-top: 0.1rem;
+    margin-bottom: 0.4rem;
+
+    span {
+      font-size: 0.14rem;
+      display: inline-block;
+      width: 1.74rem;
+      border_1px(1, #c9c9c9, solid, 0.05rem);
+      background-color: #fff;
+      text-align: center;
+
+      &:last-child {
+        border_1px(1, #ffc55f, solid, 0.05rem);
+        background-color: #f8ce46;
+        margin-left: 0.07rem;
+      }
+    }
+  }
+}
 </style>

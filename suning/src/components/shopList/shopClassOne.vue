@@ -1,26 +1,30 @@
 <template>
     <div class="shopClassOne" >
           <div>
-            <!-- <img :src="data.shopImg"  /> -->
-            <img src="../../assets/ia_300000014.jpg"  />
+            <img :src="data.dynamicImg||data.adSrc"  />
           </div>
           <ul>
-            <li class="shopName">{{data.shopName}}</li> 
-            <li class="shopClass"  >
-              <em  v-for="(item, index2) in data.shopClass" :key="index2">{{item}}</em>
+            <li class="shopName">{{data.catentdesc||data.title}}</li> 
+            <li class="shopClass"  v-show="data.lightPoint!==''">
+              <div v-if="data.extenalFileds">
+                <em   v-for="(item, index2) in data.extenalFileds.appAttrTitleJson" :key="index2">{{item}}</em>
+                </div> 
+              <div v-else v-show="data.lightPoint!==''">
+                <em>{{data.lightPoint}}</em>
+              </div>
               </li>
-            <li class="shopPrice">￥{{data.shopPrice}}</li>
-            <li class="shopType" >
+            <li class="shopPrice" v-if="data.cmdPrice">￥{{data.cmdPrice}}</li>
+            <li class="shopType" v-if="data.shopType">
               <div v-for="(tp, index1) in data.shopType" :key="index1" ><em class="typeRed">{{tp}}</em></div>
               <div v-for="(mj, index3) in data.mj" :key="'index1-'+index3" ><em class="typeOrign">{{mj}}</em></div>
             </li>
             <li class="shopPj">
-              <span>{{data.stopStoreType[0]}}</span>
-              <span>{{data.shopPjNum}}好评</span>
-              <span>{{data.shopPjGood}}好评</span>
+              <span :class="{'default':true,'active':data.salesName==='苏宁自营'||data.shopName==='苏宁自营'}">{{(data.salesName||data.shopName)|zy}}</span>
+              <span >{{data.commentStr||data.extenalFileds.commentShow}}好评</span>
+              <span>{{data.praiseRat||data.praiseDegree}}好评</span>
             </li>
             <li class="shopStore">
-              <span>{{data.shopStore}}</span>
+              <span>{{data.salesName||data.shopName||data.extenalFileds.njSnVendorName}}</span>
               <span>进店</span>
             </li>
           </ul>
@@ -46,11 +50,13 @@ export default {
  created() {
     this.data = this.shop;
     this.data.shopImg = ""+this.data.shopImg;
-
-     
-
  },
-
+filters: {
+  zy: function (value) {
+    if(value==="苏宁自营") return value.substr(0,2)
+    else return ''
+  }
+}
 
 }
 </script>
@@ -89,18 +95,29 @@ export default {
         color   #999
         height .2rem
         display flex
+        flex-wrap wrap
         align-items center
         margin-top .05rem
-        em
-          padding-right .06rem
-          border-right 1px solid #dcdcdc
-          line-height .12ren
-          font-size .12rem
-          color #999
-          height .16rem
-          padding 0 0.05rem
-          &:nth-child(1)
-            padding-left 0
+        overflow hidden
+        div
+          font-size  .12rem
+          color   #999
+          height .2rem
+          display flex
+          flex-wrap wrap
+          align-items center
+          overflow hidden
+          em
+            padding-left .06rem
+            border-left 1px solid #dcdcdc
+            line-height .12ren
+            font-size .12rem
+            color #999
+            height .16rem
+            padding 0 0.05rem
+            &:nth-child(1)
+              padding-left 0
+              border none
       .shopPrice
         font-size .14rem   
         color  #eb5435
@@ -138,14 +155,19 @@ export default {
         aitems center
         span 
           display inline-block
-          margin-right .12rem
           line-height .09rem
           padding 0.02rem .03rem
-          &:first-child
-            margin-left 0
-            background-color rgb(255,204,0)
-            border-radius .03rem
-            color  #000
+          margin-right .1rem
+        .default
+            display none
+        .active
+          margin-left 0
+          background-color rgb(255,204,0)
+          border-radius .03rem
+          margin-right .12rem
+          color  #000
+          display inline-block
+          
       .shopStore
         display flex
         font-size .09rem 
