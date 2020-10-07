@@ -118,7 +118,6 @@ export default {
             li 
                 width  1.12rem    
                 height .3rem 
-                
                 background-color #f7f7f7
                 line-height .3rem
                 text-align center
