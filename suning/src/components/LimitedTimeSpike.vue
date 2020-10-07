@@ -3,14 +3,7 @@
         <div class="limitBox">
             <header>
                 <h1>
-
-                    <div></div>
-                    <span>限时秒杀</span>
-
                     <img src="../assets/imgs/秒杀头部.png" alt="">
-
-                    <img src="../assets/imgs/秒杀头部.png" alt="">
-
                 </h1>
             </header>
             <section>
@@ -44,13 +37,7 @@
 <script>
 export default {
     props:{
-
-        foodList:{
-            type:Array,
-        },
-
         goodsList:{
-
             type:Array,
             required:true
         }
@@ -62,14 +49,12 @@ export default {
     },
     computed: {
          limitTime(){
-
            let arr = this.goodsList.filter((value,index)=>{
-
                return value.promotionInfo === "秒杀"
            })
            return arr
         }
-
+        
     },
     filters:{
         firstPrice(value){
@@ -91,54 +76,19 @@ export default {
 .limite
     width 100%
     height 4.18rem
-
-   
-    padding 0 0.12rem
-    .limitBox
-        height 100%
-        width 3.51rem
-        border-radius 15px
-        padding 0 0.09rem
-        background yellowgreen 
-
     background #eeeeee
     padding 0.1rem 0.12rem
     .limitBox
         height 100%
         width 3.51rem
-
-    background #eeeeee
-    padding 0.1rem 0.12rem
-    .limitBox
-        height 100%
-        width 3.51rem
-
         header 
             height 0.4rem
             h1
                 display flex
                 align-items center
-                background skyblue
-
-                div
-                    width  0.18rem
-                    height 0.18rem
-                    border-radius 100%
-                    background red
-                    margin-right 0.04rem 
-                span 
-                    height 0.4rem
-                    font-size 0.16rem
-                    line-height 0.4rem
-
                 img 
                     width 100%
                     height 100%
-
-                img 
-                    width 100%
-                    height 100%
-
         section 
             height 3.72rem
             display flex
