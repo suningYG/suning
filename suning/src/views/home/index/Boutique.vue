@@ -83,10 +83,8 @@
                 </div>
             </div>
             <div class="purchase">
-                <div class="pucharbox" @click="clickHandler(index)">
+                <div class="pucharbox">
                     <img src="https://image.suning.cn/uimg/cms/img/159792519589758644.png" alt="">
-
-
                 </div>
             </div>
             <div class="advater">
@@ -95,26 +93,17 @@
             
             <img src="https://image.suning.cn/uimg/cms/img/160128472441540158.gif" alt="" class="botbox">
             <GoodList :goodsList="goodsList"></GoodList>
-
-            
-            <img src="https://image.suning.cn/uimg/cms/img/160128472441540158.gif" alt="" class="botbox">
-            <GoodList :goodsList="goodsList"></GoodList>
-
         </main>
 </template>
 <script>
 import Carousel from "../../../components/Carousel.vue"
 import LaterList from "./LaterLists.vue"
-
-import BuyButton from "../../../components/BuyButton.vue"
-
 import GoodList from "../../../components/GoodsLists.vue"
 import {get} from '../../../utils/http.js'
 export default {
     components:{
         GoodList,
         Carousel,
-
         LaterList,
     },
     data() {
@@ -135,12 +124,6 @@ export default {
         })
         this.tuijian = JSON.parse(res.data.substring(9,res.data.length-2)).sugGoods[0].skus
         this.tuijian.length = 4
-
-    },
-    methods:{
-        clickHandler(index){
-            this.$router.push('/newSpecial')
-        }
     }
 }
 </script>
@@ -329,10 +312,6 @@ export default {
         .pucharbox
             width 3.47rem
             height 0.99rem
-
-            background blue
-            border-radius 10px
-
             img 
                 width 100%
                 height 100%
@@ -352,5 +331,4 @@ export default {
         position fixed
         bottom 0.5rem
         left calc(50% - 0.675rem )
-
 </style>
