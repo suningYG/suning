@@ -79,10 +79,9 @@
                 </div>
             </div>
             <div class="purchase">
-                <div class="pucharbox">
+                <div class="pucharbox" @click="clickHandler(index)">
                     <img src="https://image.suning.cn/uimg/cms/img/159792519589758644.png" alt="">
 
-                    <img src="https://image.suning.cn/uimg/cms/img/159792519589758644.png" alt="">
 
                 </div>
             </div>
@@ -126,6 +125,11 @@ export default {
         this.goodsList = result.data.data[0].skus
         // console.log(this.goodsList)
 
+    },
+    methods:{
+        clickHandler(index){
+            this.$router.push('/newSpecial')
+        }
     }
 }
 </script>

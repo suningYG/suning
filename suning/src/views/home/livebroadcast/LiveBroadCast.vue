@@ -2,37 +2,23 @@
   <div class="Live">
     <header>
       <h1 class="Bt">苏宁直播</h1>
+      <div class="nav">
+    <ul>
+      <li 
+        v-for="(item,index) in hlist"
+        :key="index"
+        @click="clickHandler(index)"
+        :class="{active:curIndex===index}"
+      >{{ item }}</li>
+    </ul>
+  </div>
     </header>
+
     <main>
       <div class="box">
         <div class="bk"></div>
       </div>
-      <div class="nav">
-        <!-- <van-tabs v-model="active">
-            <van-tab title="推荐">内容 1</van-tab>
-            <van-tab title="家电家装">内容 2</van-tab>
-            <van-tab title="超市好物">内容 3</van-tab>
-            <van-tab title="3C数码">内容 4</van-tab>
-            <van-tab title="时尚百货">内容 1</van-tab>
-            <van-tab title="限量拼团">内容 2</van-tab>
-            <van-tab title="母婴必备">内容 3</van-tab>
-            <van-tab title="海外尖货">内容 4</van-tab>
-            <van-tab title="居家生活">内容 1</van-tab>
-            <van-tab title="生活电器">内容 2</van-tab>
-        </van-tabs> -->
-        <ul>
-          <li><a href="">推荐</a></li>
-          <li><a href="">家电家装</a></li>
-          <li><a href="">超市好物</a></li>
-          <li><a href="">3C数码</a></li>
-          <li><a href="">时尚百货</a></li>
-          <li><a href="">限量拼团</a></li>
-          <li><a href="">母婴必备</a></li>
-          <li><a href="">海外尖货</a></li>
-          <li><a href="">居家生活</a></li>
-          <li><a href="">生活电器</a></li>
-        </ul>
-      </div>
+      
       <!-- <div class="carousel">
                 <div> 
                 <img src="../../assets/images/live/1.jpg" alt="">
@@ -68,25 +54,9 @@
         <span class="txt">好货热播</span>
         <span class="line"></span>
       </div>
-      <ul class="productList">
-        <li class="product">
-          <div class="pro_left">
-            <img src="" alt="" />
-          </div>
-          <div class="pro_right">
-            <h3>超市好物超市好物超市</h3>
-            <div class="recommend">
-              <div class="photo"><img src="" alt="" /></div>
-              <p>小二推荐</p>
-            </div>
-            <div class="introduce">
-              <div class="conn"><img src="" alt="" /></div>
-              <div class="comm"></div>
-            </div>
-            <div class="btn"><span>#</span>超市好物</div>
-          </div>
-        </li>
-      </ul>
+
+      <LiveGoods :liveList='liveList'></LiveGoods>
+      
     </main>
     <footer></footer>
   </div>
@@ -94,26 +64,93 @@
 <script>
 import { get } from "../../../utils/http.js"
 
-
-import Vue from "vue";
-import { Tab, Tabs } from "vant";
-
-Vue.use(Tab);
-Vue.use(Tabs);
+import LiveGoods from "../../../components/Live/LiveGoods"
 
 export default {
+  components:{
+    LiveGoods,
+  },
+ 
   data() {
-    return {
-      active: 2,
-    };
+    return{
+       hlist:['推荐','家电家装','超市好物','3C数码','时尚百货','限量拼团','母婴必备','海外尖货','居家生活','生活电器'],
+       curIndex:0,
+       liveList:[],
+       _:'',
+       labelId:''
+       
+    }
   },
 
-  async mounted(){
-    let result=await get({
-      url:'/mzfs/mpapi/slv/slvHallTab.do?u=7309636498&c=&sceneIds=N000075&cityId=010&shopCode=&parameter=&labelId=-1&page=3&count=20&pageTag=191903237&storeCode=&prevueState=&longitude=116.23128&latitude=40.22077&industryType=&bizCode=&source=wxapp'
+  methods:{
+    clickHandler(index){
+      this.curIndex=index
+      
+      switch(this.curIndex){
+        case 0 :
+          this.getRecList()
+          break;
+        case 1 :
+          this._=1601897160541
+          this.labelId=60
+          this.getOtherList()
+          break
+        case 2:
+          this._=1601901409484
+          this.labelId=54
+          this.getOtherList()
+          break
+        case 3:
+          this._=1601902148601
+          this.labelId=57
+          this.getOtherList()
+          break
+        case 4:
+          this._=1601902212062
+          this.labelId=58
+          this.getOtherList()
+          break
+        case 5:
+          this._=1601902230925
+          this.labelId=64
+          this.getOtherList()
+          break
+        default:
+          break
+
+      }
+    },
+
+    async getRecList(){
+      let result=await get({
+      url:'/mzfs/mpapi/slv/slvHallTab.do?u=7309636498&c=&sceneIds=N000075&cityId=010&shopCode=&parameter=&labelId=-1&page=1&count=20&pageTag=&storeCode=&prevueState=&longitude=116.23128&latitude=40.22077&industryType=&bizCode=&source=wxapp',
+      params:{}
     })
-    console.log(result)
-  }
+      let lList =result.data.slvHallData.data.liveList  
+      this.liveList =[...lList]
+      let rList=result.data.slvHallData.data.liveList.productList 
+      
+    },
+
+    async getOtherList(){
+      let result = await get({
+        url:'/slv/mpapi/slv-web/pc/gateway/hall/wapLiveList.jsonp?callback=wapHallLiveCallback&categorId=1&page=1&pageSize=20&pageTag=&source=wxapp',
+        params:{
+          _:this._,
+          labelId:this.labelId,
+        }       
+      })
+      let obj = JSON.parse(result.data.replace(/wapHallLiveCallback\(/ig,'').replace(/\)/ig,''))
+      this.liveList=[...obj.data.liveList]
+    },
+
+    
+  },
+
+  mounted(){
+    this.getRecList()
+  },
+
 };
 
 </script>
@@ -125,19 +162,52 @@ export default {
   background-color: rgba(0, 0, 0, 0.05);
 
   header {
-    height: 0.44rem;
+    height: 0.84rem;
     font-size: 0.22rem;
-
+ 
+    
     .Bt {
       color: #ffffff;
       line-height: 0.44rem;
       margin-left: 10%;
     }
+    
+  }
+  .nav {
+    height: 0.4rem;
+    ul {
+      display: flex;
+      height: 0.4rem;
+      overflow-x scroll
+      li {
+        display flex
+        height: 0.4rem;
+        flex-shrink: 0;
+        font-size: 0.14rem;
+        text-align: center;
+        line-height: 0.4rem;
+        padding: 0 0.1rem;
+        color #ffffff
+        position relative
+        &.active::after{
+          width .2rem
+          height 0.1rem
+          position absolute
+          transform translate(-50%, 0)
+          left 50%
+          bottom 0
+          content ''
+          border-bottom 0.04rem solid #ffffff 
+        } 
+      }
+    }
   }
 
+ 
   main {
     flex: 1;
-
+    overflow auto
+ 
     .box {
       top: 0rem;
       right: 0;
@@ -145,7 +215,7 @@ export default {
       overflow: hidden;
       height: 2.15rem;
       width: 3.75rem;
-
+      pointer-events: none;
       .bk {
         height: 2.15rem;
         width: 160%;
@@ -159,29 +229,7 @@ export default {
       }
     }
 
-    .nav {
-      width: 100%;
-      position: relative;
-      overflow-x: scroll;
-
-      ul {
-        display: flex;
-        overflow-x: scroll;
-
-        li {
-          height: 0.4rem;
-          flex-shrink: 0;
-          font-size: 0.14rem;
-          text-align: center;
-          line-height: 0.4rem;
-          padding: 0 0.1rem;
-
-          a {
-            color: #fff;
-          }
-        }
-      }
-    }
+    
 
     .carousel {
       height: 2.3rem;
@@ -277,85 +325,7 @@ export default {
       }
     }
 
-    .productList {
-      display: flex;
-      flex-direction: column;
-      border-radius: 0.15rem;
-      background-color: #fff;
-      margin: 0.12rem;
-
-      .product {
-        display: flex;
-        width: 3.5rem;
-        height: 2rem;
-
-        .pro_left {
-          width: 2.4rem;
-          height: 2rem;
-          background-color: #cccccc;
-          border-top-left-radius: 0.15rem;
-          border-bottom-left-radius: 0.15rem;
-        }
-
-        .pro_right {
-          height: 1.76rem;
-          margin: 0.12rem;
-          background-color: #fff;
-
-          h3 {
-            font-size: 0.16rem;
-            text-align: left;
-          }
-
-          .recommend {
-            display: flex;
-            align-items: center;
-            margin: 0.1rem 0;
-
-            .photo {
-              width: 0.3rem;
-              height: 0.3rem;
-              margin-right: 0.05rem;
-              background-color: red;
-              border-radius: 50%;
-            }
-
-            p {
-              font-size: 0.14rem;
-              color: #444;
-            }
-          }
-
-          .introduce {
-            display: flex;
-
-            .conn, .comm {
-              width: 0.6rem;
-              height: 0.6rem;
-              background-color: #999;
-              border-radius: 0.1rem;
-            }
-
-            .conn {
-              margin-right: 0.1rem;
-            }
-          }
-
-          .btn {
-            width: 0.67rem;
-            height: 0.27rem;
-            background-color: #fcf2eb;
-            color: #ec612a;
-            font-size: 0.1rem;
-            line-height: 0.27rem;
-
-            span {
-              margin-right: 0.05rem;
-            }
-          }
-        }
-      }
-    }
+    
   }
 }
 </style>

@@ -119,6 +119,11 @@ export default new VueRouter({
             path: '/typeScreen',
             name: 'typeScreen',
             component: () => import(/* webpackChunkName: "about" */ '../views/home/categeory/TypeScreen.vue')
+          },
+          {
+            path:"/newSpecial",
+            name:"newSpecial",
+            component: () => import(/* webpackChunkName: "about" */ '../views/newSpecial/NewSpecial.vue'),
           }
 
     ]
