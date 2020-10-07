@@ -79,7 +79,7 @@ export default new VueRouter({
                 {
                     path:"/cate",
                     name:"cate",
-                    component:() => import("../views/home/categeory/Categeory.vue"),
+                    component:() => import("../views/home/categeory/Cate.vue"),
                 },
                 {
                     path:"/live",

@@ -6,7 +6,8 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
     state:{
         shopCar: JSON.parse(localStorage.getItem("shopCar")),
-        city:'北京'
+        city:'北京',
+        nowPos:'北京市北京昌平区沙河镇沙河路18号北京科技职业学院'
     },
     mutations:{
         addGoods(state,info){
@@ -39,6 +40,9 @@ const store = new Vuex.Store({
         delAllGoods(state){
             state.shopCar.length = 0
             localStorage.setItem("shopCar",JSON.stringify(state.shopCar))
+        },
+        setNowCity(state,pos){
+            state.nowPos = pos
         }
     }
 })

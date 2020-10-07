@@ -24,7 +24,13 @@ module.exports = {
           '/ip-web':{
             target:'https://ipservice.suning.com',
             changeOrigin:true
+          },
+  
+          '/ds': {
+            target: 'https://ifast.suning.com',
+            changeOrigin: true
           }
+    
     
         }
     }

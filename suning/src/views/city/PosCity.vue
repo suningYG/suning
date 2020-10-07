@@ -10,7 +10,7 @@
         </main>
         <div class="cityArray">
             <ul>
-                <li v-for="(item,index) in cityGroup" :key="item.address + index">
+                <li v-for="(item,index) in cityGroup" :key="item.address + index" @click="getNowCityHandler(item)">
                     <p>
                         {{value}}
                         <span>
@@ -53,6 +53,13 @@ export default {
             this.cityGroup = result.data.resultData
             
             if(this.value === undefined) this.cityGroup = []
+        },
+        getNowCityHandler(dre){
+            let pos = dre.cityName + 
+            dre.districtName + 
+            dre.outPoiName + dre.address
+            this.$store.commit('setNowCity',pos)
+            this.$router.back()
         }
     },
     filters:{
@@ -100,8 +107,8 @@ export default {
     border-radius 12px
     padding 0 0.12rem
     height 7.1rem
+    overflow-x scroll
     ul
-    
         border-radius 10px
         li
             height 0.64rem

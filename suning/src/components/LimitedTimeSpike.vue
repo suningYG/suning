@@ -86,7 +86,6 @@ export default {
             h1
                 display flex
                 align-items center
-                background skyblue
                 img 
                     width 100%
                     height 100%
@@ -95,6 +94,7 @@ export default {
             display flex
             justify-content space-between
             flex-wrap wrap
+            background-color #ffffff
             .goodsInfo
                 width 1.08rem
                 height 1.86rem
