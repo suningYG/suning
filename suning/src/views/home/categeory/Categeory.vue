@@ -4,6 +4,7 @@
         <router-link to="/search">搜索</router-link>
         <router-link to="/typeScreen">筛选</router-link>
         <router-view></router-view>
+
         categeory
     </div>
 </template>

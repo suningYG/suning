@@ -5,6 +5,16 @@ module.exports = {
             target: 'https://ifast.suning.com',
             changeOrigin: true,
           },
+          '/mzfs': {
+            target: 'https://ifast.suning.com',
+            changeOrigin: true,
+          },
+          
+          '/slv': {
+            target: 'https://ifast.suning.com',
+            changeOrigin: true,
+          },
+
           '/msf': {
             target: 'https://ifast.suning.com',
             changeOrigin: true,
@@ -31,7 +41,11 @@ module.exports = {
             changeOrigin: true
           }
     
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 70d4a00057298ece510b3dbf27bbb429e16afb4c
         }
     }
 }

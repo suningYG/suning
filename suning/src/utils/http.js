@@ -1,10 +1,10 @@
 import axios from "axios"
 
-const get = ({url,params}) =>{
+const get = ({url,params={}}) =>{
     return axios({
         url,
         params
-    
+
     })
     .then(result =>{
         // console.log(result)

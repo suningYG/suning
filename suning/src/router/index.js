@@ -94,7 +94,13 @@ export default new VueRouter({
                 {
                     path:"/self",
                     name:"self",
-                    component:() => import("../views/home/myyigou/MyYiGou.vue")
+                    redirect:'/Order',
+                    component:() => import("../views/home/myyigou/MyYiGou.vue"),
+                },
+                {
+                    path: '/Order' ,
+                    name:'Order',
+                    component:()=>import('../views/home/myyigou/Order.vue')
                 },
 
                
@@ -135,6 +141,11 @@ export default new VueRouter({
                 }
             ]
         },
+        {
+            path:"/newSpecial",
+            name:"newSpecial",
+            component: () => import(/* webpackChunkName: "about" */ '../views/newSpecial/NewSpecial.vue'),
+          }
 
     ]
 })
