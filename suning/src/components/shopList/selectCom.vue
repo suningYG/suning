@@ -11,9 +11,9 @@
         <li class="active" >{{list[0]}}<span></span></li>
       </ul>
       <ul v-if="defaults===-1" class="price">
-        <li> <input type="number" placeholder="最低价" maxlength="8"></li>
+        <li> <input type="number" placeholder="最低价" maxlength="8" v-model="minPrice"></li>
         <li><span></span></li>
-        <li><input type="number" placeholder="最高价" maxlength="8"></li>
+        <li><input type="number" placeholder="最高价" maxlength="8" v-model="maxPrice"></li>
       </ul>
       <ul v-if="defaults===0||defaults===2||defaults===-2"  :class="{'ul':defaults===2}">
           <li :class="{'active':selectList.indexOf(item)>-1}" v-for="(item,index ) in list "  :key="index" @click="select(item)" >{{item.valueDesc||item.name}}<span></span></li>
@@ -45,13 +45,21 @@ export default {
            defaults:0,
           // num:false,//false 为单选  true 为多选
           selectList:[],
+          minPrice:null,
+          maxPrice:null,
+
       }
   },
   mounted() {
     console.log(this.list);
       if(this.title==="收货地"){this.defaults = 1;}
       else if(this.title==="价格区间"){this.defaults =-1;}
-      // else if(this.list.length<4) {this.defaults = -2;}
+      else if(this.list.length<4) {this.defaults = -2;}
+  },
+  computed: {
+    minPrice:{
+      
+    }
   },
   methods: {
     show(ind){

@@ -174,12 +174,17 @@ export default {
     let res3 = await get({
       url: `th/mpapi/cpm/getMTBrandCGoods?m_pid=500000003&t_pid=&q=${this.txt}&c_pid=100000007&ts_pid=&cpc_shop_pid=&cpm_brand_pid=500001022&city=351&clt=minipro&dev_id=&v_m=3&brandName=`,
     });
-
-    if (res.data.filters[0].values.length > 18)
-      res.data.filters[0].values = res.data.filters[0].values.filter(
-        (item, index) => index < 18
-      );
-    else res.data.filters[0].values = res.data.filters[0].values;
+    res.data.filters.forEach(item=>{
+      if(item.values.length>18){
+        item.values = item.values.filter((item, index) => index < 18)
+      }
+    })
+    console.log( res.data.filters);
+    // if (res.data.filters[0].values.length > 18)
+    //   res.data.filters[0].values = res.data.filters[0].values.filter(
+    //     (item, index) => index < 18
+    //   );
+    // else res.data.filters[0].values = res.data.filters[0].values;
     this.nav = res.data.filters;
     console.log(this.nav);
     this.nav.length > 4 ? (this.nav.length = 4) : this.nav;
