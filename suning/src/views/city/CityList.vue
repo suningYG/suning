@@ -6,6 +6,7 @@
              shape="round"
              background="#f2f2f2"
             placeholder="输入城市名称"
+         
              /> 
              <span class="retUp" @click="retUpRouter">取消</span>
         </div>
@@ -75,7 +76,8 @@ export default {
     data() {
         return {
             value:'',
-            cityList:[]
+            cityList:[],
+            city:[]
         }
     },
     methods:{
@@ -90,7 +92,8 @@ export default {
             }
             this.$store.state.city = name
             this.$router.back()
-        }
+        },
+
     },
     async mounted(){
         let result = await get({

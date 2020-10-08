@@ -2,8 +2,15 @@
     <div class="container">
         <header>
             <p>商品分类</p>
-            <div>
+            <div class="search">
                 <!-- <Search></Search> -->
+                <van-search 
+                v-model="value"
+                placeholder="搜索商品"
+                shape="round"
+                background="#ffffff" 
+                @click="clickSearchHandler"
+                />
             </div>
         </header>
         <div class="catetoryContainer">
@@ -45,12 +52,12 @@
 
 <script>
 import Vue from "vue";
-import { Form, Sidebar, SidebarItem} from "vant";
-import axios from "axios";
+import { Form, Sidebar, SidebarItem,Search} from "vant";
 import {get} from '../../../utils/http'
-import Search from '../categeory/Search'
+// import Search from '../categeory/Search'
 Vue.use(Sidebar);
 Vue.use(SidebarItem);
+Vue.use(Search);
 
 export default {
   components: {
@@ -71,7 +78,9 @@ export default {
                 return value.id === id
             })
             this.catetories = arr.children
-            console.log(this.catetories)
+        },
+        clickSearchHandler(){
+            this.$router.push({name:'search'})
         }
     },
 
@@ -80,6 +89,7 @@ export default {
             active: 0,
             items:[],
             catetories: [],
+            value:''
             };
         },
        
@@ -98,7 +108,7 @@ export default {
         align-items center
         p
             display block
-            width 3.6rem
+            width 4rem
             height .54rem
             font-size .18rem
             text-algin center
@@ -106,13 +116,13 @@ export default {
             font-weight bloder
             line-height 0.54rem
             text-align center
-        div
-            width 11.4rem
+        .search
+            width 11rem
             height .54rem
-            background-color yellow
             padding-left 0.15rem
             display flex
             align-items center
+
     .catetoryContainer
         display flex
         flex 1

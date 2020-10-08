@@ -72,7 +72,7 @@
             </div>
             <div class="shopCarList" v-else v-for="item in this.$store.state.shopCar" :key="item.sugGoodsCode">
                 <div class="shopname">
-                    <van-checkbox v-model="checked" checked-color="#f7ce46" icon-size="0.2rem"></van-checkbox>
+                    <van-checkbox v-model="shopAll" checked-color="#f7ce46" icon-size="0.2rem" @click="isChecked"></van-checkbox>
                     <div class="shop">
                         <h2>苏宁官方旗舰店</h2>
                     </div>
@@ -82,7 +82,7 @@
                 </div>
             <van-swipe-cell>
                 <div class="goodsInfo">
-                    <van-checkbox v-model="checked" checked-color="#f7ce46" icon-size="0.2rem"></van-checkbox>
+                    <van-checkbox v-model="goodAll" checked-color="#f7ce46" icon-size="0.2rem"></van-checkbox>
                     <div class="goods">
                         <div class="goodsimg">
                             <img :src="item.pictureUrl" alt="">
@@ -142,7 +142,7 @@
             </van-popup>
         </main>
         <div class="toPrice" v-if="this.$store.state.shopCar.length > 0">
-            <van-checkbox v-model="checked" checked-color="#f7ce46" icon-size="0.2rem">全选</van-checkbox>
+            <van-checkbox v-model="checked" checked-color="#f7ce46" icon-size="0.2rem" @click="isAllChecked">全选</van-checkbox>
                 <div class="toPirceBox" v-if="!write">
                     <div class="price">
                         <span>合计：</span>
@@ -190,7 +190,9 @@ export default {
             show: false,
             recommend:[],
             write:false,
-            posShow:false
+            posShow:false,
+            shopAll:[],
+            goodAll:true,
         }
     },
     computed: {
@@ -213,6 +215,12 @@ export default {
             })
             this.recommend = JSON.parse(result.data.substring(9,result.data.length-2)).sugGoods[0].skus
             // console.log(this.recommend)
+    },
+    watch:{
+        isAllChecked(){
+            this.shopAll = this.checked
+            this.goodAll = this.checked
+        }
     },
     methods:{
         showPopup() {
@@ -251,6 +259,13 @@ export default {
         delAllGoods(){
             this.$store.commit("delAllGoods")
             this.$forceUpdate()
+        },
+        isChecked(){
+            this.goodAll = this.shopAll
+        },
+        isAllChecked(){
+            this.shopAll = this.checked
+            this.goodAll = this.checked
         }
     },
     filters:{
@@ -274,8 +289,7 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 .EmptyCar
     height 100%
     display flex
