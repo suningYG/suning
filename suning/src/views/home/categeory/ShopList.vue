@@ -1,27 +1,28 @@
 <template>
   <div class="ShopList">
     <header>
-       <shopListHead txt="月饼" />
+      <router-link class="headerLink" to="/Search">
+        <shopListHead :txt="txt" /></router-link>
       <!-- <input type="text" placeholder="月饼" /> -->
     </header>
-    <div :class="{'black':true,'dis_flex':seTwoTf}" ></div>
+    <div :class="{ black: true, dis_flex: seTwoTf }"></div>
 
     <div class="topImg">
-      <img src="../../../assets/images/shopList/showImg.png" alt />
+      <img v-if="url" :src="url" alt />
     </div>
     <div class="classify">
       <ul class="topNav">
-        <li @click="selectTop(1)">
-          <span :class="seTop === 1 ? 'active' : ''">综合</span>
+        <li @click="selectTop(0)">
+          <span :class="seTop === 0 ? 'active' : ''">综合</span>
         </li>
-        <li @click="selectTop(2)">
-          <span :class="seTop === 2 ? 'active' : ''">销量</span>
+        <li @click="selectTop(8)">
+          <span :class="seTop === 8 ? 'active' : ''">销量</span>
         </li>
-        <li @click="selectTop(3)">
-          <span :class="seTop === 3 ? 'active' : ''">价格</span>
+        <li @click="selectTop(9)">
+          <span :class="seTop === 9 ? 'active' : ''">价格</span>
           <div class="three">
-            <span :class="{ orignTop: sePrice === 1 }"></span>
-            <span :class="{ orignBot: sePrice === 2, turnBot: true }"></span>
+            <span :class="{ orignTop: sePrice === 9 }"></span>
+            <span :class="{ orignBot: sePrice === 10, turnBot: true }"></span>
           </div>
         </li>
         <li v-if="seClass" @click="selectClass">
@@ -59,65 +60,36 @@
           </svg>
         </li>
         <li></li>
-        <li>筛选</li>
+        <li @click="skip">筛选</li>
       </ul>
       <ul class="twoNav">
         <li
-          :class="{ active: seTwo === 'pp' || seNav.pp.length !== 0 }"
-          @click="selectTwo('pp')"
+          v-for="(item, index) in nav"
+          :key="index"
+          :class="{
+            active: seTwo === index || seNav[index].values.length !== 0,
+          }"
+          @click="selectTwo(index)"
         >
-          <div v-if="!seNav.pp.length" class="oneDiv">品牌<span></span></div>
-          <div v-else class="twoDiv">
-            <em v-for="(pp, index) in seNav.pp" :key="index">{{
-              nav["pp"][pp].name
-            }}</em>
-          </div>
-        </li>
-        <li
-          :class="{ active: seTwo === 'lb' || seNav.lb.length !== 0 }"
-          @click="selectTwo('lb')"
-        >
-          <div v-if="!seNav.lb.length" class="oneDiv">类别<span></span></div>
-          <div v-else class="twoDiv">
-            <em v-for="(lb, index) in seNav.lb" :key="index">{{
-              nav["lb"][lb].name
-            }}</em>
-          </div>
-        </li>
-        <li
-          :class="{ active: seTwo === 'gc' || seNav.gc.length !== 0 }"
-          @click="selectTwo('gc')"
-        >
-          <div v-if="!seNav.gc.length" class="oneDiv">
-            国产/进口<span></span>
+          <div v-if="!seNav[index].values.length" class="oneDiv">
+            {{ nav[index].fieldDesc }}<span></span>
           </div>
           <div v-else class="twoDiv">
-            <em v-for="(gc, index) in seNav.gc" :key="index">{{
-              nav["gc"][gc].name
-            }}</em>
-          </div>
-        </li>
-        <li
-          :class="{ active: seTwo === 'kw' || seNav.kw.length !== 0 }"
-          @click="selectTwo('kw')"
-        >
-          <div v-if="!seNav.kw.length" class="oneDiv">口味<span></span></div>
-          <div v-else class="twoDiv">
-            <em v-for="(kw, index) in seNav.kw" :key="index">{{
-              nav["kw"][kw].name
-            }}</em>
+            <em v-for="(pp, index2) in seNav[index].values" :key="index2"
+              >{{ nav[index].values[pp].valueDesc }} </em
+            >
           </div>
         </li>
       </ul>
-      <div >
-        <ul :class="{ twoList: true, dis_flex: seTwoTf }">
+      <div>
+        <ul :class="{ twoList: true, dis_flex: seTwoTf }" v-if="seTwo > -1">
           <li
-            :class="{ active: item.selected }"
-            v-for="(item, index) in nav[seTwo]"
+            :class="{ active: item.checked }"
+            v-for="(item, index) in nav[seTwo].values"
             :key="index"
             @click="selNav(index)"
           >
-            {{ item.name }} <span></span>
+            {{ item.valueDesc }} <span></span>
           </li>
           <li>
             <span @click="reset">重选</span>
@@ -128,7 +100,6 @@
       <div class="topTxt">
         <p>苏宁服务 正品保障 极速送达苏宁服务</p>
       </div>
-      
     </div>
     <div class="content">
       <ul class="shopListsTwo">
@@ -164,169 +135,70 @@
 import shopClassOne from "../../../components/shopList/shopClassOne";
 import shopClassTwo from "../../../components/shopList/shopClassTwo";
 import shopListHead from "../../../components/shopList/shopListHead";
-
+import { get } from "../../../utils/http";
 export default {
   name: "ShopList",
   data() {
     return {
       seClass: true,
+      txt: this.$route.params.content,
       sePrice: 0,
-      seTop: 1,
+      seTop: 0,
+      st: 0,
+      cf: "",
       seTwoTf: false,
-      seTwo: "",
-      nav: {
-        pp: [
-          { name: "坚果1", selected: false },
-         
-        ],
-        lb: [
-          { name: "坚果22", selected: false },
-          { name: "坚果2", selected: false },
-          { name: "坚果2", selected: false },
-          { name: "坚果2", selected: false },
-          { name: "坚果2", selected: false },
-          { name: "坚果2", selected: false },
-          { name: "坚果2", selected: false },
-          { name: "坚果2", selected: false },
-          { name: "坚果2", selected: false },
-          { name: "坚果2", selected: false },
-        ],
-        gc: [
-          { name: "坚果333", selected: false },
-          { name: "坚果2", selected: false },
-          { name: "坚果2", selected: false },
-          { name: "坚果2", selected: false },
-          { name: "坚果2", selected: false },
-          { name: "坚果2", selected: false },
-          { name: "坚果2", selected: false },
-          { name: "坚果2", selected: false },
-          { name: "坚果2", selected: false },
-          { name: "坚果2", selected: false },
-        ],
-        kw: [
-          { name: "坚果2444", selected: false },
-          { name: "坚果2", selected: false },
-          { name: "坚果2", selected: false },
-          { name: "坚果2", selected: false },
-          { name: "坚果2", selected: false },
-          { name: "坚果2", selected: false },
-          { name: "坚果2", selected: false },
-          { name: "坚果2", selected: false },
-          { name: "坚果2", selected: false },
-          { name: "坚果2", selected: false },
-        ],
-      },
-      seNav: {
-        pp: [],
-        lb: [],
-        gc: [],
-        kw: [],
-      },
+      seTwo: -1,
+      nav: [],
+      seNav: [],
       zs: [],
-      shopList: [
-        {
-          shopId: "20201001",
-          shopImg: "static/ia_300000011.jpg",
-          shopName: "真好吃的吃的真好吃的吃的真好吃的吃的",
-          shopClass: ["白壳五香", "白壳五香"],
-          shopPrice: 100,
-          shopType: ["免运费"],
-          stopStoreType: ["自营"],
-          mj: ["每59-20", "领劵150-20"],
-          shopPjNum: 1200,
-          shopPjGood: 99,
-          shopStore: "假货美食店",
-        },
-        {
-          shopId: "20201002",
-          shopImg: "assets/ia_300000014.jpg",
-          shopName: "真好吃的吃的真好吃的吃的真好吃的吃的",
-          shopClass: ["白壳五香", "白壳五香"],
-          shopPrice: 100,
-          shopType: ["免运费"],
-          mj: ["每59-20", "领劵150-20"],
-          shopPjNum: 1200,
-          stopStoreType: ["自营"],
-          shopPjGood: 99,
-          shopStore: "假货美食店",
-        },
-        {
-          shopId: "20201002",
-          shopImg: "assets/ia_300000014.jpg",
-          shopName: "真好吃的吃的真好吃的吃的真好吃的吃的",
-          shopClass: ["白壳五香", "白壳五香"],
-          shopPrice: 100,
-          shopType: ["免运费"],
-          mj: ["每59-20", "领劵150-20"],
-          stopStoreType: ["自营"],
-          shopPjNum: 1200,
-          shopPjGood: 99,
-          shopStore: "",
-        },
-        {
-          shopId: "20201002",
-          shopImg: "assets/ia_300000014.jpg",
-          shopName: "真好吃的吃的真好吃的吃的真好吃的吃的",
-          shopClass: ["白壳五香", "白壳五香"],
-          shopPrice: 100,
-          shopType: ["免运费"],
-          stopStoreType: ["自营"],
-          mj: ["每59-20", "领劵150-20"],
-          shopPjNum: 1200,
-          shopPjGood: "99%",
-          shopStore: "假货美食店",
-        },
-        {
-          shopId: "20201001",
-          shopImg: "static/ia_300000011.jpg",
-          shopName: "真好吃的吃的真好吃的吃的真好吃的吃的",
-          shopClass: ["白壳五香", "白壳五香"],
-          shopPrice: 100,
-          shopType: ["免运费"],
-          stopStoreType: ["自营"],
-          mj: ["每59-20", "领劵150-20"],
-          shopPjNum: 1200,
-          shopPjGood: 99,
-          shopStore: "假货美食店",
-        },
-        {
-          shopId: "20201002",
-          shopImg: "assets/ia_300000014.jpg",
-          shopName: "真好吃的吃的真好吃的吃的真好吃的吃的",
-          shopClass: ["白壳五香", "白壳五香"],
-          shopPrice: 100,
-          shopType: ["免运费"],
-          mj: ["每59-20", "领劵150-20"],
-          shopPjNum: 1200,
-          stopStoreType: ["自营"],
-          shopPjGood: 99,
-          shopStore: "假货美食店",
-        },
-        {
-          shopId: "20201001",
-          shopImg: "static/ia_300000011.jpg",
-          shopName: "真好吃的吃的真好吃的吃的真好吃的吃的",
-          shopClass: ["白壳五香", "白壳五香"],
-          shopPrice: 100,
-          shopType: ["免运费"],
-          stopStoreType: ["自营"],
-          mj: ["每59-20", "领劵150-20"],
-          shopPjNum: 1200,
-          shopPjGood: 99,
-          shopStore: "假货美食店",
-        },
-      ],
+      url: "",
+      shopList: [],
+      res:[]
     };
   },
 
   components: {
     shopClassOne,
     shopClassTwo,
-    shopListHead
+    shopListHead,
   },
-  mounted() {
-  
-    
+  async mounted() {
+    //获取四个分类数据
+    this.txt = localStorage.getItem('txt')
+    let res = await get({
+      url: `/ebuy/mpapi/mobile/clientSearch?keyword=${this.txt}&iv=0&st=0&cp=0&cf=&ci=&ct=0&sp=&spf=&operate=0&cityId=358&clientType=yg_wxminpro&jlfStoreCode=&saleMode=&jlfOnly=&store=%5B%5D&ch=100040&ps=10&v=10.0`,
+    });
+    let res2 = await get({
+      url: `/th/mpapi/cpc/getCpcDataForMip?&t=mip&q=${this.txt}&positionID=700000003&v_m=3&dev_id=&city=351&member_id=7062798981`,
+    });
+    let res3 = await get({
+      url: `th/mpapi/cpm/getMTBrandCGoods?m_pid=500000003&t_pid=&q=${this.txt}&c_pid=100000007&ts_pid=&cpc_shop_pid=&cpm_brand_pid=500001022&city=351&clt=minipro&dev_id=&v_m=3&brandName=`,
+    });
+
+    if (res.data.filters[0].values.length > 18)
+      res.data.filters[0].values = res.data.filters[0].values.filter(
+        (item, index) => index < 18
+      );
+    else res.data.filters[0].values = res.data.filters[0].values;
+    this.nav = res.data.filters;
+    console.log(this.nav);
+    this.nav.length > 4 ? (this.nav.length = 4) : this.nav;
+
+    this.nav.forEach((item, index) => {
+      this.seNav.push({ values: [] });
+    });
+    console.log(res2.data.rows.length);
+    if (res2.data.rows.length === 0) {
+      this.shopList = res.data.goods;
+      this.shopList.forEach((item, index) => {
+        item.cmdPrice = (Math.random() * 100).toFixed(2);
+      });
+    } else {
+      this.shopList = res2.data.rows;
+    }
+    this.url = res3.data.cpmDatas.adSrc;
+    this.res = res;
+    console.log(this.shopList);
   },
   computed: {
     listTwoLeft() {
@@ -342,73 +214,103 @@ export default {
       this.seClass = !this.seClass;
     },
     //选择排序方式
-    selectTop(ind) {
+    async selectTop(ind) {
       this.seTop = ind;
-      if (this.seTop === 3) {
-        if (this.sePrice === 0 || this.sePrice === 2) this.sePrice = 1;
-        else this.sePrice = 2;
+      if (this.seTop === 9) {
+        if (this.sePrice === 0 || this.sePrice === 9) this.sePrice = 10;
+        else this.sePrice = 9;
       } else {
         this.sePrice = 0;
       }
-      console.log(this.sePrice);
+      this.st = this.seTop === 9 ? this.sePrice : this.seTop;
+      let res = await get({
+        url: `/ebuy/mpapi/mobile/clientSearch?keyword=${this.txt}&iv=0&st=${this.st}&cp=0&cf=&ci=&ct=0&sp=&spf=&operate=0&cityId=358&clientType=yg_wxminpro&jlfStoreCode=&saleMode=&jlfOnly=&store=%5B%5D&ch=100040&ps=10&v=10.0`,
+      });
+      this.res = res;
+      this.shopList = res.data.goods;
+      console.log(this.shopList);
     },
     //选择商品属性分类
     selectTwo(txt) {
-      if(txt===this.seTwo){
-       this.seTwoTf = false;
-       this.seTwo = "";
-       return
+      console.log(txt);
+      if (txt === this.seTwo) {
+        this.seTwoTf = false;
+        this.seTwo = -1;
+        return;
       }
-      console.log('123');
-      
+      console.log("123");
+
       this.seTwoTf = true;
       this.seTwo = txt;
       this.zs = JSON.parse(JSON.stringify(this.seNav[this.seTwo]));
-      console.log(this.zs);
+      console.log(this.nav[this.seTwo]);
 
       this.bl();
     },
     // 遍历
     bl() {
-      this.nav[this.seTwo].forEach((item, index) => {
-        if (this.seNav[this.seTwo].indexOf(index) !== -1) {
-          item.selected = true;
+      this.nav[this.seTwo].values.forEach((item, index) => {
+        if (this.seNav[this.seTwo].values.indexOf(index) !== -1) {
+          item.checked = true;
         } else {
-          item.selected = false;
+          item.checked = false;
         }
       });
     },
     //筛选分类属性
     selNav(ind) {
-      var index = this.zs.indexOf(ind);
+      var index = this.zs.values.indexOf(ind);
 
       console.log(index);
 
       if (index === -1) {
         // this.seNav[this.seTwo].push(ind);
-        this.zs.unshift(ind);
-        this.nav[this.seTwo][ind].selected = true;
+        this.zs.values.unshift(ind);
+        this.nav[this.seTwo].values[ind].checked = true;
       } else {
         //  this.seNav[this.seTwo].splice(index,1)
-        this.zs.splice(index, 1);
+        this.zs.values.splice(index, 1);
 
-        this.nav[this.seTwo][ind].selected = false;
+        this.nav[this.seTwo].values[ind].checked = false;
       }
-      console.log(this.zs);
+      console.log(this.zs.values);
     },
     // 重选
     reset() {
-      this.zs.length = 0;
-      this.nav[this.seTwo].forEach((item, index) => {
-        item.selected = false;
+      this.zs.values.length = 0;
+      this.nav[this.seTwo].values.forEach((item, index) => {
+        item.checked = false;
       });
     },
-    sure() {
+    async sure() {
       this.seNav[this.seTwo] = JSON.parse(JSON.stringify(this.zs));
       this.bl();
       this.seTwoTf = false;
-      this.seTwo = "";
+      this.seTwo = -1;
+      console.log(this.seNav);
+      let arr = [];
+      this.seNav.forEach((item, index) => {
+        item.values.forEach((item) =>
+          arr.push(this.nav[index].values[item].value)
+        );
+      });
+      this.cf = arr.join("%");
+
+      let res = await get({
+        url: `/ebuy/mpapi/mobile/clientSearch?keyword=${this.txt}&iv=0&st=${this.st}&cp=0&cf=${this.cf}&ci=&ct=0&sp=&spf=&operate=0&cityId=358&clientType=yg_wxminpro&jlfStoreCode=&saleMode=&jlfOnly=&store=%5B%5D&ch=100040&ps=10&v=10.0`,
+      });
+      this.res = res;
+      this.shopList = res.data.goods;
+      this.shopList.forEach((item, index) => {
+        item.cmdPrice = (Math.random() * 100).toFixed(2);
+      });
     },
+    jrup() {
+      this.$router.push("search");
+    },
+    skip(){
+      this.$router.push({name:'typeScreen',params:{res:this.res.data}})
+    }
   },
 };
 </script>
@@ -424,7 +326,7 @@ export default {
   flex-direction: column;
   overflow-y: scroll;
   position: relative;
-  text-align center
+  text-align: center;
 
   header {
     height: 0.39rem;
@@ -435,11 +337,13 @@ export default {
     position: fixed;
     z-index: 100;
 
+    .headerLink {
+      height: 0.39rem;
+    }
   }
 
   .topImg {
     width: 3.58rem;
-    height: 1.35rem;
     margin: 0.39rem auto 0;
 
     img {
@@ -449,7 +353,7 @@ export default {
     }
   }
 
-  .classify { 
+  .classify {
     position: sticky;
     top: 0.389rem;
     width: 100%;
@@ -458,7 +362,6 @@ export default {
     background-color: #fff;
     display: flex;
     flex-direction: column;
-    
 
     .topNav {
       padding-top: 0.05rem;
@@ -537,6 +440,7 @@ export default {
         &:nth-child(6) {
           width: 0.31rem;
           margin-left: 0.08rem;
+          color #343
         }
 
         >span:nth-child(1) {
@@ -565,10 +469,6 @@ export default {
         line-height: 0.27rem;
         font-size: 0.12rem;
         text-align: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
         .oneDiv {
           display: flex;
           justify-content: center;
@@ -586,7 +486,8 @@ export default {
         }
 
         .twoDiv {
-          width: 0.6rem;
+          width: 100%;
+          padding: 0 0.15rem;
           ellipsis(1, 1);
         }
       }
@@ -594,7 +495,8 @@ export default {
       .active {
         border_1px(1, #FFCC00, solid, 0.05rem);
         background-color: rgb(255, 238, 171);
-        div{
+
+        div {
           span {
             margin-left: 0.04rem;
             margin-top: -0.05rem;
@@ -603,13 +505,11 @@ export default {
             border-width: 0.03rem;
             border-style: solid;
             border-color: transparent transparent #999 transparent;
+          }
         }
-        }
-        
       }
     }
 
-  
     .twoList {
       padding-top: 0.15rem;
       padding: 0.15rem 0.1rem 0;
@@ -632,6 +532,8 @@ export default {
         background-color: #f7f7f7;
         border-radius: 0.05rem;
         margin-bottom: 0.12rem;
+        padding: 0 0.15rem;
+        ellipsis(1, 1);
 
         &:nth-child(3n) {
           margin-right: 0;
@@ -666,6 +568,7 @@ export default {
         border_1px(1, #FFCC00, solid, 0.05rem);
         position: relative;
         overflow: hidden;
+
         span {
           display: inline-block;
           background: url('../../../assets/images/shopList/icons.png') no-repeat 0 -38.28rem;
@@ -679,17 +582,17 @@ export default {
       }
     }
 
-      .dis_flex {
-        display: flex;
-      }
+    .dis_flex {
+      display: flex;
+    }
 
-      .dis_none {
-        display: none;
-      }
+    .dis_none {
+      display: none;
+    }
 
     .topTxt {
       width: 3.75rem;
-      margin-left -.1rem
+      margin-left: -0.1rem;
       height: 0.5rem;
       background-color: #f2f2f2;
       display: flex;
@@ -697,6 +600,7 @@ export default {
       position: sticky;
       top: 1.24rem;
       z-index: 20;
+
       p {
         width: 3.56rem;
         margin: 0 auto;
@@ -709,25 +613,26 @@ export default {
         border-radius: 0.05rem;
       }
     }
-    
   }
-  .black{
-    flex 1
-    width 100%
-    background-color rgba(0,0,0,0.3)
-    min-height 6rem
-    position fixed
-    top 2rem
-    display none
-    }
+
+  .black {
+    flex: 1;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    min-height: 6rem;
+    position: fixed;
+    top: 2rem;
+    display: none;
+  }
+
   .dis_flex {
-      display: flex;
-    }
+    display: flex;
+  }
+
   .content {
     // overflow-y scroll
     width: 100%;
     background-color: #f2f2f2;
-    
 
     .shopListsOne {
       flex: 1;

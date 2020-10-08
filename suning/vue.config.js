@@ -39,7 +39,15 @@ module.exports = {
           '/ds': {
             target: 'https://ifast.suning.com',
             changeOrigin: true
-          }     
+          },
+          '/ebuy': {
+            target: 'https://ifast.suning.com',
+            changeOrigin: true,
+          },
+          '/th': {
+            target: 'https://ifast.suning.com',
+            changeOrigin: true,
+          },
         }
     }
 }

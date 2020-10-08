@@ -111,12 +111,12 @@ export default new VueRouter({
         {
             path: '/shopList',
             name: 'shopList',
-            component: () => import(/* webpackChunkName: "about" */ '../views/home/categeory/ShopList.vue')
+            component: () => import( '../views/home/categeory/ShopList.vue')
           },
           {
             path: '/search',
             name: 'search',
-            component: () => import(/* webpackChunkName: "about" */ '../views/home/categeory/Search.vue')
+            component: () => import( '../views/home/categeory/Search.vue')
           },
           {
             path: '/typeScreen',

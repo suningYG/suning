@@ -1,25 +1,24 @@
 <template>
     <div class="shopClassTwo" >
           <div>
-            <!-- <img :src="data.shopImg"  /> -->
-            <img src="../../assets/ia_300000014.jpg"  />
+            <img :src="data.dynamicImg||data.adSrc"  />
           </div>
           <ul>
-            <li class="shopName">{{data.shopName}}{{data.shopName}}</li> 
-            <li class="stopStoreType"  >
-                           <span>{{data.stopStoreType[0]}}</span>
+            <li class="shopName">{{data.catentdesc||data.title}}{{data.shopName}}</li> 
+            <li class="stopStoreType" v-if="data.shopName==='苏宁自营'" >
+                           <span>{{(data.shopName||data.salesName)|zy}}</span>
                         </li>
             <li class="shopType" >
               <!-- <div v-for="(tp, index1) in data.shopType" :key="index1" ><em class="typeRed">{{tp}}</em></div> -->
               <div v-for="(mj, index3) in data.mj" :key="'index1-'+index3" ><em class="typeOrign">{{mj}}</em></div>
             </li>
-            <li class="shopPrice">￥{{data.shopPrice}}</li>
+            <li class="shopPrice" v-if="data.cmdPrice">￥{{data.cmdPrice}}</li>
             <li class="shopPj">
-              <span>{{data.shopPjNum}}好评</span>
-              <span>{{data.shopPjGood}}好评</span>
+              <span>{{data.commentStr||data.extenalFileds.commentShow}}好评</span>
+              <span>{{data.praiseRat||data.praiseDegree}}好评</span>
             </li>
-            <li class="shopStore" v-if="data.shopStore.length">
-              <span>{{data.shopStore}}</span>
+            <li class="shopStore" v-if="data.shopName!=='苏宁自营'">
+              <span>{{data.salesName||data.shopName||data.extenalFileds.njSnVendorName}}</span>
             </li>
           </ul>
     
@@ -40,7 +39,12 @@ export default {
      data:{},
    }
  },
- 
+ filters: {
+  zy: function (value) {
+    if(value==="苏宁自营") return value.substr(0,2)
+    else return ''
+  }
+},
  created() {
     this.data = this.shop;
     this.data.shopImg = ""+this.data.shopImg;

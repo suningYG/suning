@@ -11,42 +11,16 @@
         <li class="active" >{{list[0]}}<span></span></li>
       </ul>
       <ul v-if="defaults===-1" class="price">
-        <li> <input type="number" placeholder="最低价" maxlength="8"> </li>
+        <li> <input type="number" placeholder="最低价" maxlength="8"></li>
         <li><span></span></li>
         <li><input type="number" placeholder="最高价" maxlength="8"></li>
       </ul>
-      <ul v-if="defaults===0||defaults===2"  :class="{'ul':defaults===2}">
-          <li :class="{'active':selectList.indexOf(item)>-1}" v-for="(item,index ) in list "  :key="index" @click="select(item)" >{{item}}<span></span></li>
+      <ul v-if="defaults===0||defaults===2||defaults===-2"  :class="{'ul':defaults===2}">
+          <li :class="{'active':selectList.indexOf(item)>-1}" v-for="(item,index ) in list "  :key="index" @click="select(item)" >{{item.valueDesc||item.name}}<span></span></li>
       </ul>
-      <div v-show="title==='相关分类'" class="ccc"></div>
+      <div v-show="title==='相关分类'||title==='价格区间'" class="ccc"></div>
     </div>
-  <!--   <div class="many">
-      <div class="top">
-        <h2>服务</h2>
-        <span></span>
-      </div>
-      <ul>
-        <li>北京</li>
-      </ul>
-    </div>
-    <div class="peices">
-      <div class="top">
-        <h2>服务</h2>
-        <span></span>
-      </div>
-      <ul>
-        <li>北京</li>
-      </ul>
-    </div>
-     <div class="address">
-      <div class="top">
-        <h2>收货地址</h2>
-        <span></span>
-      </div>
-      <ul>
-        <li>北京</li>
-      </ul>
-    </div> -->
+  
   </div>
 </template>
 
@@ -74,8 +48,10 @@ export default {
       }
   },
   mounted() {
-      if(this.title==="收货地")this.defaults =1;
-      else if(this.title==="价格区间")this.defaults =-1
+    console.log(this.list);
+      if(this.title==="收货地"){this.defaults = 1;}
+      else if(this.title==="价格区间"){this.defaults =-1;}
+      // else if(this.list.length<4) {this.defaults = -2;}
   },
   methods: {
     show(ind){
@@ -111,6 +87,8 @@ export default {
     flex-direction column
     padding 0 .09rem
     width 100%
+    overflow-y auto
+   
     >div
         display flex
         flex-direction column
@@ -147,6 +125,7 @@ export default {
                 margin-bottom .1rem
                 border-radius .05rem
                 border 1px solid #fefefe
+                ellipsis(1, 1);
 
                 &:nth-child(3n)
                     margin-right 0
@@ -184,21 +163,21 @@ export default {
             align-items center
             flex-wrap wrap
             li
-                width  1.34rem
-                border 1px solid #cccccc
-                overflow hidden
-                input 
-                    width  100%
-                    outline none 
-                    border none
-                    font-size .12rem
-                    text-align center
-                    &::placeholder
-                        color #ccc
-                &:nth-child(2)
-                    width .15rem
-                    height .01rem
-               
+              width  1.34rem
+              border 1px solid #cccccc
+              overflow hidden
+              input 
+                  width  100%
+                  outline none 
+                  border none
+                  font-size .12rem
+                  text-align center
+                  &::placeholder
+                      color #ccc
+              &:nth-child(2)
+                  width .15rem
+                  height .01rem
+              
 
             
 </style>

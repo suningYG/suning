@@ -5,8 +5,7 @@
       <span v-if="title==='最近搜索'" @click="clear">清空历史</span>
     </div>
     <ul class="ul">
-      <li v-for="(item, index) in list" :key="index">{{item}}</li>
-      
+      <li  v-for="(item, index) in list" :key="index">{{title==='最近搜索'?item:item.word}}</li>
     </ul>
   </div>
 </template>
