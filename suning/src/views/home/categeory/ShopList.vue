@@ -325,7 +325,7 @@ export default {
     shopListHead
   },
   mounted() {
-    console.log('1234');
+  
     
   },
   computed: {
