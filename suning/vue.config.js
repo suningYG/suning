@@ -22,6 +22,10 @@ module.exports = {
           '/tuijian':{
             target:"https://ifast.suning.com",
             changeOrigin: true
+          },
+          '/scms':{
+            target:"https://lib.suning.com",
+            changeOrigin: true
           }
     
 

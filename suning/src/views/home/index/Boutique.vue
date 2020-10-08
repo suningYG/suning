@@ -79,7 +79,7 @@
                 </div>
             </div>
             <div class="purchase">
-                <div class="pucharbox" @click="clickHandler(index)">
+                <div class="pucharbox" @click="clickHandler">
                     <img src="https://image.suning.cn/uimg/cms/img/159792519589758644.png" alt="">
 
 
@@ -127,8 +127,10 @@ export default {
 
     },
     methods:{
-        clickHandler(index){
+        clickHandler(){
             this.$router.push('/newSpecial')
+            // console.log(0)
+            // this.$router.push({name:'newSpecial'})
         }
     }
 }

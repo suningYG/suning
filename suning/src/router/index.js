@@ -102,8 +102,14 @@ export default new VueRouter({
                     name:'Order',
                     component:()=>import('../views/home/myyigou/Order.vue')
                 },
+        
             ]
             
+        },
+        {
+            path:"/newSpecial",
+            name:"newSpecial",
+            component:()=> import('../views/newSpecial/NewSpecial.vue')
         },
         {
             path: '/shopList',
@@ -120,11 +126,5 @@ export default new VueRouter({
             name: 'typeScreen',
             component: () => import(/* webpackChunkName: "about" */ '../views/home/categeory/TypeScreen.vue')
           },
-          {
-            path:"/newSpecial",
-            name:"newSpecial",
-            component: () => import(/* webpackChunkName: "about" */ '../views/newSpecial/NewSpecial.vue'),
-          }
-
     ]
 })
