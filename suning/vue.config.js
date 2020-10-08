@@ -39,13 +39,7 @@ module.exports = {
           '/ds': {
             target: 'https://ifast.suning.com',
             changeOrigin: true
-          }
-    
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> 70d4a00057298ece510b3dbf27bbb429e16afb4c
+          }     
         }
     }
 }
