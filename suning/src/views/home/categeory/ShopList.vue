@@ -163,8 +163,13 @@ export default {
   },
   async mounted() {
     //获取四个分类数据
- 
-    this.txt = this.$router.history.current.params.key
+    // console.log(this.$router.history.current.params.key)
+    if(this.$router.history.current.params.key){
+      this.txt = this.$router.history.current.params.key
+    }else{
+      this.txt = localStorage.getItem('txt')
+    }
+    
     let res = await get({
       url: `/ebuy/mpapi/mobile/clientSearch?keyword=${this.txt}&iv=0&st=0&cp=0&cf=&ci=&ct=0&sp=&spf=&operate=0&cityId=358&clientType=yg_wxminpro&jlfStoreCode=&saleMode=&jlfOnly=&store=%5B%5D&ch=100040&ps=10&v=10.0`,
     });
