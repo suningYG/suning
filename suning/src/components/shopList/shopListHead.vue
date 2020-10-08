@@ -40,7 +40,7 @@ import {get} from '../../utils/http'
         },
     
 mounted() {
-    console.log(this.txt);
+    // console.log(this.txt);
 },
         methods: {
            keyUpInpu(e){

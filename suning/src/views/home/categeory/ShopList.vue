@@ -156,7 +156,6 @@ export default {
       res:[]
     };
   },
-
   components: {
     shopClassOne,
     shopClassTwo,
@@ -164,7 +163,8 @@ export default {
   },
   async mounted() {
     //获取四个分类数据
-    this.txt = localStorage.getItem('txt')
+ 
+    this.txt = this.$router.history.current.params.key
     let res = await get({
       url: `/ebuy/mpapi/mobile/clientSearch?keyword=${this.txt}&iv=0&st=0&cp=0&cf=&ci=&ct=0&sp=&spf=&operate=0&cityId=358&clientType=yg_wxminpro&jlfStoreCode=&saleMode=&jlfOnly=&store=%5B%5D&ch=100040&ps=10&v=10.0`,
     });
@@ -181,13 +181,13 @@ export default {
       );
     else res.data.filters[0].values = res.data.filters[0].values;
     this.nav = res.data.filters;
-    console.log(this.nav);
+    // console.log(this.nav);
     this.nav.length > 4 ? (this.nav.length = 4) : this.nav;
 
     this.nav.forEach((item, index) => {
       this.seNav.push({ values: [] });
     });
-    console.log(res2.data.rows.length);
+    // console.log(res2.data.rows.length);
     if (res2.data.rows.length === 0) {
       this.shopList = res.data.goods;
       this.shopList.forEach((item, index) => {
@@ -198,7 +198,7 @@ export default {
     }
     this.url = res3.data.cpmDatas.adSrc;
     this.res = res;
-    console.log(this.shopList);
+    // console.log(this.shopList);
   },
   computed: {
     listTwoLeft() {
@@ -228,7 +228,7 @@ export default {
       });
       this.res = res;
       this.shopList = res.data.goods;
-      console.log(this.shopList);
+      // console.log(this.shopList);
     },
     //选择商品属性分类
     selectTwo(txt) {
@@ -238,12 +238,12 @@ export default {
         this.seTwo = -1;
         return;
       }
-      console.log("123");
+      // console.log("123");
 
       this.seTwoTf = true;
       this.seTwo = txt;
       this.zs = JSON.parse(JSON.stringify(this.seNav[this.seTwo]));
-      console.log(this.nav[this.seTwo]);
+      // console.log(this.nav[this.seTwo]);
 
       this.bl();
     },
@@ -261,7 +261,7 @@ export default {
     selNav(ind) {
       var index = this.zs.values.indexOf(ind);
 
-      console.log(index);
+      // console.log(index);
 
       if (index === -1) {
         // this.seNav[this.seTwo].push(ind);
@@ -273,7 +273,7 @@ export default {
 
         this.nav[this.seTwo].values[ind].checked = false;
       }
-      console.log(this.zs.values);
+      // console.log(this.zs.values);
     },
     // 重选
     reset() {
@@ -287,7 +287,7 @@ export default {
       this.bl();
       this.seTwoTf = false;
       this.seTwo = -1;
-      console.log(this.seNav);
+      // console.log(this.seNav);
       let arr = [];
       this.seNav.forEach((item, index) => {
         item.values.forEach((item) =>

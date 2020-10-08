@@ -32,7 +32,7 @@
                        {{tit.dirName}}
                    </h1>
                    <ul>
-                       <li v-for="imgItem in tit.children" :key="imgItem.id" @click="clickGoodsHandler">
+                       <li v-for="imgItem in tit.children" :key="imgItem.id" @click="clickGoodsHandler(imgItem.dirName)">
                            <p>
                                <img :src="imgItem.imgWx" alt="">
                            </p>
@@ -82,8 +82,8 @@ export default {
         clickSearchHandler(){
             this.$router.push({name:'search'})
         },
-        clickGoodsHandler(){
-            this.$router.push({name:'shopList'})
+        clickGoodsHandler(keyWord){
+            this.$router.push({name:'shopList',params:{key:keyWord}})
         }
     },
 
