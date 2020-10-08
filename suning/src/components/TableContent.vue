@@ -2,7 +2,7 @@
     <div class="tablegoods">
         <div class="tablebox">
             <ul>
-                <li v-for="item in foodcate" :key="item.elementId">
+                <li v-for="item in foodcate" :key="item.elementId" @click="clickHandler(item.name)">
                     <div class="imgbox">
                         <img :src="'https://image.suning.cn'+item.imageUrl" alt="">
                         
@@ -26,6 +26,11 @@ export default {
     mounted() {
         
     },
+    methods:{
+        clickHandler(keyWord){
+            this.$router.push({name:'shopList',params:{key:keyWord}})
+        }
+    }
 }
 </script>
 <style lang="stylus" scoped>

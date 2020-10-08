@@ -48,6 +48,12 @@ module.exports = {
             target: 'https://ifast.suning.com',
             changeOrigin: true,
           },
+          '/scms':{
+            target:"https://lib.suning.com",
+            changeOrigin: true
+          }
+    
+
         }
     }
 }

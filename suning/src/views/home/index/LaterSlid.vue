@@ -128,11 +128,17 @@ export default {
     },
 
     mounted() {
-        let r = this.$route.path.substr(7)
+        let r
+        if(JSON.stringify(this.$route.params) === '{}'){
+             r = this.$route.path.substr(7)
+        }else{
+             r = this.$route.params.id
+        }
         let id = this.list.find(value =>{
             return value.route === r 
         })
         if(r === id.route) this.active = id.id
+      
     },
 }
 </script>

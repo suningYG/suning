@@ -83,7 +83,7 @@
                 </div>
             </div>
             <div class="purchase">
-                <div class="pucharbox">
+                <div class="pucharbox" @click="clickHandler">
                     <img src="https://image.suning.cn/uimg/cms/img/159792519589758644.png" alt="">
                 </div>
             </div>
@@ -124,6 +124,13 @@ export default {
         })
         this.tuijian = JSON.parse(res.data.substring(9,res.data.length-2)).sugGoods[0].skus
         this.tuijian.length = 4
+    },
+    methods:{
+        clickHandler(){
+            this.$router.push('/newSpecial')
+            // console.log(0)
+            // this.$router.push({name:'newSpecial'})
+        }
     }
 }
 </script>

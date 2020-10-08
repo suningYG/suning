@@ -109,6 +109,11 @@ export default new VueRouter({
             
         },
         {
+            path:"/newSpecial",
+            name:"newSpecial",
+            component:()=> import('../views/newSpecial/NewSpecial.vue')
+        },
+        {
             path: '/shopList',
             name: 'shopList',
             component: () => import( '../views/home/categeory/ShopList.vue')
