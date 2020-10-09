@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state:{
-        shopCar: JSON.parse(localStorage.getItem("shopCar")),
+        shopCar: JSON.parse(localStorage.getItem("shopCar")) || [],
+        
         city:'北京',
         nowPos:'北京市北京昌平区沙河镇沙河路18号北京科技职业学院'
     },

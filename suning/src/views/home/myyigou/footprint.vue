@@ -1,4 +1,4 @@
-/* 我的足迹 */
+
 <template>
  <div class="container">
      <div class="box-browse">

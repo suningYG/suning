@@ -105,7 +105,7 @@ export default new VueRouter({
                         // {
                         //     path:'/footprint',
                         //     name:'footprint',
-                        //     component:() => import('../views/home/myyigou/footprint.vue')
+                        //     component:() => import("../views/home/myyigou/footprint.vue")
                         // }
                     ]
               
