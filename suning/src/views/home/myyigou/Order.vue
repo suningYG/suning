@@ -12,7 +12,7 @@
     <div class="content">
       <div class="tp"><img src="../../../assets/imgs/self/5_03.png" alt=""></div>
       <p>您还没有订单哦</p>
-      <div class="btn">去首页</div>
+      <div class="btn" @click="goIndexHandler">去首页</div>
     </div>
   </div>
   
@@ -31,6 +31,11 @@ export default {
       active: 0,
     }
   },
+  methods:{
+    goIndexHandler(){
+      this.$router.push({path:'/index'})
+    }
+  }
 }
 </script>
 

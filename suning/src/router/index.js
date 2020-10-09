@@ -94,7 +94,20 @@ export default new VueRouter({
                 {
                     path:"/self",
                     name:"self",
+                    redirect:'/recommend',
                     component:() => import("../views/home/myyigou/suning.vue"),
+                    children:[
+                        {
+                            path:'/recommend',
+                            name:'recommend',
+                            component:() => import("../views/home/myyigou/recommend.vue")
+                        },
+                        // {
+                        //     path:'/footprint',
+                        //     name:'footprint',
+                        //     component:() => import('../views/home/myyigou/footprint.vue')
+                        // }
+                    ]
               
                 },
                 {
