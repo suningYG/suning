@@ -94,14 +94,14 @@ export default new VueRouter({
                 {
                     path:"/self",
                     name:"self",
-                    redirect:'/Order',
-                    component:() => import("../views/home/myyigou/MyYiGou.vue"),
+                    component:() => import("../views/home/myyigou/suning.vue"),
+              
                 },
                 {
                     path: '/Order' ,
                     name:'Order',
                     component:()=>import('../views/home/myyigou/Order.vue')
-                },
+                }
 
                
                 
