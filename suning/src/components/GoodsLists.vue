@@ -1,6 +1,6 @@
 <template>
     <div class="goodlist">
-        <div class="goodbox" v-for="(item,index) in goodsList" :key="index">
+        <div class="goodbox" v-for="(item,index) in goodsList" :key="index ">
             <div v-if="item.pictureUrl">
                 <div class="imgbox">
                     <img :src="item.pictureUrl" alt="">

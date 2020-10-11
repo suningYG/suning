@@ -19,19 +19,21 @@
                     <!-- <img src="https://image.suning.cn/uimg/cms/img/160128602476555121.gif" alt="" class=""> -->
                     <ul>
                         <li>
-                            <img src="" alt="">
-                            <span></span>
+                            <img src="http://image.suning.cn/uimg/cms/img/159962440310691187.jpg" alt="">
+                            <span>进口好货</span>
                         </li>
                         <li>
-                            <img src="" alt="">
-                            <span></span>
+                            <img src="http://image.suning.cn/uimg/cms/img/159962438295243666.jpg" alt="">
+                            <span>手机电子</span>
                         </li>
                         <li>
-                            <img src="" alt="">
-                            <span></span>
+                            <img src="http://image.suning.cn/uimg/cms/img/159962432086223537.jpg" alt="">
+                            <span>耳机精选</span>
                         </li>
                     </ul>
                     <div class="gifBox-1">
+                        <img src="http://image.suning.cn/uimg/cms/img/160145544988019634.jpg" alt="">
+                        <span>限时领券</span>
                     </div>
 
                 </div>
@@ -45,14 +47,16 @@
                     </div>
                     <div class="good">
                         <ul>
-                            <li>
-                                <div></div>
-                                <span class="through">￥89.00</span>
+                            <li v-for="item in tuijian" :key="item.sugGoodsCode">
+                                <div>
+                                    <img :src="item.pictureUrl" alt="">
+                                </div>
+                                <span class="through">￥{{item.price}}</span>
                                 <h1>
-                                    <i>￥</i><em>799</em><span class="group">2人团</span>
+                                    <i>￥</i><em>{{(item.price-5).toFixed(0)}}</em><span class="group">2人团</span>
                                 </h1>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <div></div>
                                 <span class="through">￥89.00</span>
                                 <h1>
@@ -72,14 +76,14 @@
                                 <h1>
                                     <i>￥</i><em>799</em><span class="group">2人团</span>
                                 </h1>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                     
                 </div>
             </div>
             <div class="purchase">
-                <div class="pucharbox">
+                <div class="pucharbox" @click="clickHandler">
                     <img src="https://image.suning.cn/uimg/cms/img/159792519589758644.png" alt="">
                 </div>
             </div>
@@ -104,7 +108,8 @@ export default {
     },
     data() {
         return {
-            goodsList:[]
+            goodsList:[],
+            tuijian:[]
         }
     },
     async mounted(){
@@ -113,6 +118,19 @@ export default {
         })
         this.goodsList = result.data.data[0].skus
         // console.log(this.goodsList)
+        let res = await get({
+            url:"/tuijian/mpapi/recommend-portal/recommend/paramsBiz.jsonp?sceneIds=32-61&u=6132551008&count=16&callback=callback"
+
+        })
+        this.tuijian = JSON.parse(res.data.substring(9,res.data.length-2)).sugGoods[0].skus
+        this.tuijian.length = 4
+    },
+    methods:{
+        clickHandler(){
+            this.$router.push('/newSpecial')
+            // console.log(0)
+            // this.$router.push({name:'newSpecial'})
+        }
     }
 }
 </script>
@@ -167,7 +185,7 @@ export default {
             ul
                 width 2.1rem
                 height 0.93rem
-                background yellow 
+        
                 position absolute
                 bottom 0.22rem
                 left 0.24rem
@@ -178,9 +196,42 @@ export default {
                     flex 1
                     display flex
                     flex-direction column
-                    background yellowgreen 
-                    height 100%
+        
+                    justify-content center
                 
+                    height 100%
+                    img
+                        display block
+                        flex 1
+                        width 90%
+                      
+                        padding-left 0.05rem
+                    span
+                
+                        height 0.3rem
+                        text-align center
+                        font-size 0.14rem
+                        line-height 0.3rem
+                        color #000000
+
+
+            .gifBox-1
+                position absolute
+                bottom 0.448rem;
+                right 0.225rem;
+                width 0.8rem;
+                height 0.70rem;
+                border-radius 12px
+                img 
+                    width 100%
+                    height 100%
+                    display block
+                    border-radius 12px
+                span 
+                    padding-left 0.1rem
+                    font-size 0.16rem
+                    color #ffffff
+                    font-weight blod
 
 
     .snbuy
@@ -214,7 +265,6 @@ export default {
                     font-size 0.12rem
             .good
                 height 1.075rem
-                background blue
                 margin-top 0.1rem
                 ul
                     display flex
@@ -224,13 +274,21 @@ export default {
                         height 100%
                         width 0.785rem
                         display flex
-                        background #f7f7f7
+                        background #ffffff
                         flex-direction column
                         div
                             height 0.8rem
                             width 100%
-                            background yellow 
-                            border-radius 10px
+                            border-radius 8px
+                            background #ffffff
+                            display flex
+                            justify-content center
+                            align-items  center
+                            img
+                                width 88%
+                                height 88%
+                            
+                            
                         .through 
                             text-decoration line-through
                             font-size 0.08rem
@@ -239,9 +297,10 @@ export default {
                             font-weight normal
                             i
                                 font-size 0.06rem
+                                color #ea4826
                             em
                                 font-size 0.14rem
-                                color red
+                                color #ea4826
                                 font-weight bolder
                             .group
                                 width 0.27rem
@@ -250,6 +309,7 @@ export default {
                                 border-radius 3px
                                 font-size 0.07rem
                                 padding 0.02rem
+                                margin-left 0.05rem
     .purchase
         height 1.2rem
         background #f4f4f4

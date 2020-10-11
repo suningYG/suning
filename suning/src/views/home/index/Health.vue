@@ -1,6 +1,6 @@
 <template>
     <div class="foods">
-        <!-- <van-loading size="24px" vertical type="spinner" v-show="isshow">加载中...</van-loading> -->
+
         <TableContent :foodcate="foodcate"></TableContent>
         <LimitedTimeSpike :foodList="foodList"></LimitedTimeSpike>
         <h5>为你推荐</h5>
@@ -11,9 +11,11 @@
 import TableContent from "../../../components/TableContent.vue"
 import LimitedTimeSpike from "../../../components/LimitedTimeSpike.vue"
 import { get } from "../../../utils/http.js"
+
   import Vue from 'vue';
   import { Loading } from 'vant';
   Vue.use(Loading);
+
 
 export default {
     data() {
@@ -29,6 +31,9 @@ export default {
     },
     async mounted() {
         let result = await get({
+
+            url:"/pdua/mpapi/pd/xcxTabPage.do?callback=callback&_=1601344836504&cityCode=010&msCount=20&catalogueId=202253",
+
             url:"/pdua/mpapi/pd/xcxTabPage.do?callback=callback&catalogueId=202253",
             // query:{
             //     _:1601276261750,

@@ -11,6 +11,10 @@
   // import TableBar from '../../components/TableBar.vue'
 
 
+
+
+
+
 export default {
     components:{
       Tabbar,
@@ -26,6 +30,7 @@ export default {
     height 100%
     display flex
     flex-direction column
+
 
 
 </style>
