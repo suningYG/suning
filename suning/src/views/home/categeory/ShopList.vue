@@ -101,9 +101,17 @@
         <p>苏宁服务 正品保障 极速送达苏宁服务</p>
       </div>
     </div>
+   
     <div class="content">
       <ul class="shopListsTwo">
-        <div v-if="seClass">
+         <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+            <van-list
+              v-model="loading"
+              :finished="finished"
+              finished-text="没有更多了"
+              @load="onLoad"
+            >
+            <div v-if="seClass">
           <shopClassOne
             v-for="(shop, index) in shopList"
             :key="index"
@@ -126,6 +134,10 @@
             ></shopClassTwo>
           </div>
         </div>
+              
+            </van-list>
+        </van-pull-refresh>
+        
       </ul>
     </div>
   </div>
@@ -136,6 +148,11 @@ import shopClassOne from "../../../components/shopList/shopClassOne";
 import shopClassTwo from "../../../components/shopList/shopClassTwo";
 import shopListHead from "../../../components/shopList/shopListHead";
 import { get } from "../../../utils/http";
+import Vue from 'vue';
+import { Loading,List,PullRefresh } from 'vant';
+Vue.use(PullRefresh);
+Vue.use(List);
+Vue.use(Loading);
 export default {
   name: "ShopList",
   data() {
@@ -146,6 +163,7 @@ export default {
       seTop: 0,
       st: 0,
       cf: "",
+      cp:0,
       seTwoTf: false,
       seTwo: -1,
       nav: [],
@@ -153,7 +171,10 @@ export default {
       zs: [],
       url: "",
       shopList: [],
-      res:[]
+      res:[],
+       loading: false,
+      finished: false,
+      refreshing: false,
     };
   },
   components: {
@@ -164,18 +185,20 @@ export default {
   async mounted() {
     //获取四个分类数据
     // console.log(this.$router.history.current.params.key)
+    
     if(this.$router.history.current.params.key){
       this.txt = this.$router.history.current.params.key
+      localStorage.setItem('txt',this.txt)
     }else{
       this.txt = localStorage.getItem('txt')
     }
     
     let res = await get({
-      url: `/ebuy/mpapi/mobile/clientSearch?keyword=${this.txt}&iv=0&st=0&cp=0&cf=&ci=&ct=0&sp=&spf=&operate=0&cityId=358&clientType=yg_wxminpro&jlfStoreCode=&saleMode=&jlfOnly=&store=%5B%5D&ch=100040&ps=10&v=10.0`,
+      url: `/ebuy/mpapi/mobile/clientSearch?keyword=${this.txt}&iv=0&st=0&cp=${this.cp}&cf=&ci=&ct=0&sp=&spf=&operate=0&cityId=358&clientType=yg_wxminpro&jlfStoreCode=&saleMode=&jlfOnly=&store=%5B%5D&ch=100040&ps=10&v=10.0`,
     });
-    let res2 = await get({
-      url: `/th/mpapi/cpc/getCpcDataForMip?&t=mip&q=${this.txt}&positionID=700000003&v_m=3&dev_id=&city=351&member_id=7062798981`,
-    });
+    // let res2 = await get({
+    //   url: `/th/mpapi/cpc/getCpcDataForMip?&t=mip&q=${this.txt}&positionID=700000003&v_m=3&dev_id=&city=351&member_id=7062798981`,
+    // });
     let res3 = await get({
       url: `th/mpapi/cpm/getMTBrandCGoods?m_pid=500000003&t_pid=&q=${this.txt}&c_pid=100000007&ts_pid=&cpc_shop_pid=&cpm_brand_pid=500001022&city=351&clt=minipro&dev_id=&v_m=3&brandName=`,
     });
@@ -185,30 +208,30 @@ export default {
       }
     })
     console.log( res.data.filters);
-    // if (res.data.filters[0].values.length > 18)
-    //   res.data.filters[0].values = res.data.filters[0].values.filter(
-    //     (item, index) => index < 18
-    //   );
-    // else res.data.filters[0].values = res.data.filters[0].values;
+ 
     this.nav = res.data.filters;
-    // console.log(this.nav);
     this.nav.length > 4 ? (this.nav.length = 4) : this.nav;
 
     this.nav.forEach((item, index) => {
       this.seNav.push({ values: [] });
     });
-    // console.log(res2.data.rows.length);
-    if (res2.data.rows.length === 0) {
-      this.shopList = res.data.goods;
+    // if (res2.data.rows.length === 0) {
+    //   this.shopList = res.data.goods;
+    //   this.shopList.forEach((item, index) => {
+    //     item.cmdPrice = (Math.random() * 100).toFixed(2);
+    //   });
+    // } else {
+    //   this.shopList = res2.data.rows;
+    // }
+       this.shopList = res.data.goods;
       this.shopList.forEach((item, index) => {
         item.cmdPrice = (Math.random() * 100).toFixed(2);
       });
-    } else {
-      this.shopList = res2.data.rows;
-    }
     this.url = res3.data.cpmDatas.adSrc;
     this.res = res;
-    // console.log(this.shopList);
+    console.log(res);
+
+    
   },
   computed: {
     listTwoLeft() {
@@ -234,7 +257,7 @@ export default {
       }
       this.st = this.seTop === 9 ? this.sePrice : this.seTop;
       let res = await get({
-        url: `/ebuy/mpapi/mobile/clientSearch?keyword=${this.txt}&iv=0&st=${this.st}&cp=0&cf=&ci=&ct=0&sp=&spf=&operate=0&cityId=358&clientType=yg_wxminpro&jlfStoreCode=&saleMode=&jlfOnly=&store=%5B%5D&ch=100040&ps=10&v=10.0`,
+        url: `/ebuy/mpapi/mobile/clientSearch?keyword=${this.txt}&iv=0&st=${this.st}&cp=${this.cp}&cf=&ci=&ct=0&sp=&spf=&operate=0&cityId=358&clientType=yg_wxminpro&jlfStoreCode=&saleMode=&jlfOnly=&store=%5B%5D&ch=100040&ps=10&v=10.0`,
       });
       this.res = res;
       this.shopList = res.data.goods;
@@ -305,9 +328,10 @@ export default {
         );
       });
       this.cf = arr.join("%");
-
+      console.log(this.st);
+      
       let res = await get({
-        url: `/ebuy/mpapi/mobile/clientSearch?keyword=${this.txt}&iv=0&st=${this.st}&cp=0&cf=${this.cf}&ci=&ct=0&sp=&spf=&operate=0&cityId=358&clientType=yg_wxminpro&jlfStoreCode=&saleMode=&jlfOnly=&store=%5B%5D&ch=100040&ps=10&v=10.0`,
+        url: `/ebuy/mpapi/mobile/clientSearch?keyword=${this.txt}&iv=0&st=${this.st}&cp=${this.cp}&cf=${this.cf}&ci=&ct=0&sp=&spf=&operate=0&cityId=358&clientType=yg_wxminpro&jlfStoreCode=&saleMode=&jlfOnly=&store=%5B%5D&ch=100040&ps=10&v=10.0`,
       });
       this.res = res;
       this.shopList = res.data.goods;
@@ -320,7 +344,46 @@ export default {
     },
     skip(){
       this.$router.push({name:'typeScreen',params:{res:this.res.data}})
-    }
+    },
+   async   onLoad() {
+     console.log(12);
+     
+        if (this.refreshing) {
+          this.shopList = [];
+          // this.refreshing = false;
+        
+        }
+        let res = await get({
+                url: `/ebuy/mpapi/mobile/clientSearch?keyword=${this.txt}&iv=0&st=${this.st}&cp=${this.cp}&cf=${this.cf}&ci=&ct=0&sp=&spf=&operate=0&cityId=358&clientType=yg_wxminpro&jlfStoreCode=&saleMode=&jlfOnly=&store=%5B%5D&ch=100040&ps=10&v=10.0`,
+              });
+        this.res = res;
+         this.res.data.goods.forEach((item, index) => {
+        item.cmdPrice = (Math.random() * 100).toFixed(2);
+      });
+        this.shopList = [
+          ...this.shopList,
+          ...res.data.goods
+        ]
+        console.log(this.shopList.length);
+        
+       console.log(this.shopList );
+        
+        this.loading = false;
+        this.finished = false;
+          this.cp++
+
+        if (this.shopList.length >= this.cp*10) {
+        console.log(this.shopList.length);
+ 
+          this.finished = true;
+
+        }
+
+    },
+    onRefresh() {
+     
+      this.onLoad();
+    },
   },
 };
 </script>
@@ -638,7 +701,7 @@ export default {
   .dis_flex {
     display: flex;
   }
-
+  
   .content {
     // overflow-y scroll
     width: 100%;

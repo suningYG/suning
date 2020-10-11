@@ -51,15 +51,33 @@ export default {
       }
   },
   mounted() {
-    console.log(this.list);
       if(this.title==="收货地"){this.defaults = 1;}
       else if(this.title==="价格区间"){this.defaults =-1;}
       else if(this.list.length<4) {this.defaults = -2;}
+      let date = JSON.parse(localStorage.getItem('date')||'[]')
+      date.forEach(item=>{
+        if(item.title === '区间价格'){
+            this.minPrice = item.Min_price
+            this.maxPrice = item.Max_price
+        }else if(item.title===this.title){
+          this.selectList = item.list
+        }
+      })
+      
   },
   computed: {
-    minPrice:{
-      
-    }
+   /*  minPrice(){
+      if(this.minPrice!==null){
+               let date = JSON.parse(localStorage.getItem('date')||'[]');
+             date.forEach(item=>{
+        if(item.title ==='价格区间'){
+            item = {title:this.title,Min_price:this.minPrice,Max_price:this.maxPrice}
+          localStorage.setItem('date',JSON.stringify(date))
+        }
+
+      })    
+      }
+    } */
   },
   methods: {
     show(ind){
@@ -67,8 +85,7 @@ export default {
       else if(ind ===2) this.defaults=0
     },
     select(txt){
-      console.log(txt);
-      
+      let date = JSON.parse(localStorage.getItem('date')||'[]');
       if(!this.num){
         if(this.selectList.length===0)this.selectList.push(txt);
         else (this.selectList.length--,this.selectList.push(txt))
@@ -78,11 +95,24 @@ export default {
         if(index>-1)this.selectList.splice(index,1);
         else this.selectList.push(txt)
       }
+     /*  date.forEach(item=>{
+        if(item.title ==='价格区间'){
+            item = {title:this.title,Min_price:this.minPrice,Max_price:this.maxPrice}
+        }else if(item.title ===this.title){
+            item = {title:this.title,list:this.selectList}
+        }
+          localStorage.setItem('date',JSON.stringify(date))
+
+      })
+       */
+      
+      
     },
     updateAdd(){
       console.log("修改地址");
       
     }
+   
   },
 };
 </script>

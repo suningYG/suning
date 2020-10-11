@@ -70,8 +70,12 @@ export default {
     onClickRight() {
       Toast("按钮");
     },
-    reset() {},
-    sure() {},
+    reset() {
+      localStorage.removeItem('date')
+    },
+    sure() {
+      this.$router.go(-1)
+    },
   },
 };
 </script>

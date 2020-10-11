@@ -5,7 +5,7 @@
       <span v-if="title==='最近搜索'" @click="clear">清空历史</span>
     </div>
     <ul class="ul">
-      <li  v-for="(item, index) in list" :key="index">{{title==='最近搜索'?item:item.word}}</li>
+      <li  v-for="(item, index) in list" :key="index" @click="toShopList(item.word||item)">{{title==='最近搜索'?item:item.word}}</li>
     </ul>
   </div>
 </template>
@@ -30,6 +30,9 @@ export default {
       this.$emit("clearHistory",'')
       console.log('2');
 
+    },
+    toShopList(content){
+      this.$emit("search",content)
     }
   },
 };
